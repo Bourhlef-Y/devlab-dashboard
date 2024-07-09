@@ -1,0 +1,21 @@
+.vehicles {
+  display: flex;
+  height: 100vh;
+}
+
+.mainContent {
+  margin-left: 16px;
+  width: 100%;
+}
+
+.content {
+  padding: 8px;
+  margin-top: 16px;
+}
+
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}

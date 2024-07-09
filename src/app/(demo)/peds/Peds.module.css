@@ -1,0 +1,24 @@
+.peds {
+  display: flex;
+  height: 100vh;
+}
+
+.mainContent {
+  margin-left: 16px;
+}
+
+.content {
+  padding: 8px;
+  margin-top: 16px;
+}
+
+
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.mainContent {
+  width: 100%;
+}

@@ -8,7 +8,7 @@ interface ToolCardProps {
   tool: {
     name: string;
     description: string;
-    link: string;
+    download: string;
     image?: string; // Image optionnelle
     author: string;
   };
@@ -44,12 +44,12 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
               <Image src={tool.image} alt={tool.name} layout="fill" objectFit="cover" className="rounded-t-lg" />
             </div>
           )}
-          <CardDescription className="mt-4">{tool.description}</CardDescription>
+          <CardDescription className="mt-4 ">{tool.description}</CardDescription>
         </CardContent>
         <CardFooter>
-          <Link href={tool.link} passHref>
-            <Button as="a" target="_blank">
-              Download
+          <Link href={tool.download} target="_blank" passHref>
+            <Button as="a">
+              Click here to Use it
             </Button>
           </Link>
         </CardFooter>

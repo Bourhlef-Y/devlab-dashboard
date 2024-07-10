@@ -28,5 +28,7 @@ export const config = {
         '/profile/:path*',
         '/settings/:path*',
         '/logout/:path*',
+        '/tools/:path*',
+        '/controls/:path*',
     ],
 };

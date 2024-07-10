@@ -3,27 +3,34 @@
 
 import ToolCard from '@/components/tool/ToolCard';
 import { ContentLayout } from '@/components/admin-panel/content-layout';
+import { Download } from 'lucide-react';
 
 const tools = [
   {
     name: "Dolu Tool",
-    description: "A tool for managing tattoos in the Dolu app.",
-    link: "https://github.com/dolutattoo/dolu_tool/releases/download/v4.3.2/dolu_tool.zip",
+    description: "Resource that help you developping your scripts and mods.",
+    download: "https://github.com/dolutattoo/dolu_tool/releases/download/v4.3.2/dolu_tool.zip",
     image: "/dolu.jpg",
     author: "dolutattoo",
   },
   {
     name: "Get Coords",
     description: "Simple resource to get ingame Coordinates with shitty UI",
-    link: "https://github.com/Esegovic/esegovic_coords/releases/download/lua/esegovic_coords.zip",
+    download: "https://github.com/Esegovic/esegovic_coords/releases/download/lua/esegovic_coords.zip",
     image: "/esegovic.png",
     author: "Esegovic",
   },
   {
     name: "Very simple /car command",
-    description: "This is just a simple resource which you can use to spawn any car in front of you.",
-    link: "https://forum-cfx-re.akamaized.net/original/3X/3/9/394edb23c58fc64e23411306a40e63788a3a587b.zip",
+    description: "Script who set a command to spawn any car in front of you.",
+    download: "https://forum-cfx-re.akamaized.net/original/3X/3/9/394edb23c58fc64e23411306a40e63788a3a587b.zip",
     author: "Vespura",
+  },
+  {
+    name: "Server Viewer",
+    description: "A simple tool to view your server's resources and players.",
+    download: "https://server-viewer.netlify.app/",
+    author: "Jak-Shyrak",
   },
   
   // Ajoutez d'autres outils ici

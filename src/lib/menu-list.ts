@@ -10,6 +10,7 @@ import {
   Home,
   Sparkles,
   MessageSquareWarning,
+  Keyboard,
 } from "lucide-react";
 
 type Submenu = {
@@ -48,13 +49,7 @@ export function getMenuList(pathname: string): Group[] {
     {
       groupLabel: "Main Content",
       menus: [
-        {
-          href: "/tools",
-          label: "Useful Tools",
-          active: pathname.includes("/tools"),
-          icon: Sparkles,
-          submenus: []
-        },
+        
         {
           href: "",
           label: "Game References",
@@ -79,10 +74,17 @@ export function getMenuList(pathname: string): Group[] {
           ]
         },
         {
-          href: "/report",
-          label: "Report",
-          active: pathname.includes("/report"),
-          icon: MessageSquareWarning,
+          href: "/controls",
+          label: "Controls",
+          active: pathname.includes("/controls"),
+          icon: Keyboard,
+          submenus: []
+        },
+        {
+          href: "/tools",
+          label: "Useful Tools",
+          active: pathname.includes("/tools"),
+          icon: Sparkles,
           submenus: []
         },
       ]

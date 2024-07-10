@@ -1,5 +1,6 @@
+// components/vehicle/VehicleCard.tsx
 import Image from 'next/image';
-import Swal from 'sweetalert2';
+import { toast } from "sonner";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 
 interface VehicleCardProps {
@@ -16,14 +17,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle }) => {
   const handleCardClick = () => {
     navigator.clipboard.writeText(vehicle.id)
       .then(() => {
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Copy ID to clipboard successfully!",
-          showConfirmButton: false,
-          timer: 500,
-          background: '#333',
-        });
+        toast("Copied to clipboard successfully!");
       })
       .catch((err) => {
         console.error('Failed to copy ID: ', err);

@@ -1,10 +1,11 @@
+// pages/weapons.tsx
 "use client";
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import WeaponCard from '@/components/weapon/WeaponCard';
 import { supabase } from '@/lib/supabaseClient';
-import styles from './Weapons.module.css';
+import { Input } from "@/components/ui/input";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
 
 interface Weapon {
@@ -18,6 +19,7 @@ interface Weapon {
 const Weapons = () => {
   const [weapons, setWeapons] = useState<Weapon[]>([]);
   const [filteredWeapons, setFilteredWeapons] = useState<Weapon[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState<string>('');
   const router = useRouter();
 
@@ -43,14 +45,16 @@ const Weapons = () => {
     return () => clearInterval(intervalId);
   }, []);
 
+  useEffect(() => {
+    filterWeapons(category, searchTerm);
+  }, [category, searchTerm, weapons]);
+
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCategory(e.target.value);
-    filterWeapons(e.target.value, searchTerm);
   };
 
   const handleSearch = (term: string) => {
     setSearchTerm(term);
-    filterWeapons(category, term);
   };
 
   const filterWeapons = (category: string, searchTerm: string) => {
@@ -64,34 +68,35 @@ const Weapons = () => {
     setFilteredWeapons(filtered);
   };
 
-  const [searchTerm, setSearchTerm] = useState('');
-
   return (
-    
     <ContentLayout title="Weapons">
-      <div className={styles.weapons}>
-        <div className={styles.mainContent}>
-          <div className={styles.content}>
-            <h1 className={styles.title}>Weapons Page</h1>
-            <select className={styles.dropdown} onChange={handleCategoryChange} value={category}>
-              <option value="">All Categories</option>
-              <option value="Assault Rifles">Assault Rifles</option>
-              <option value="Handguns">Handguns</option>
-              <option value="Heavy Weapons">Heavy Weapons</option>
-              <option value="Light Machine Guns">Light Machine Guns</option>
-              <option value="Melee">Melee</option>
-              <option value="Miscellaneous">Miscellaneous</option>
-              <option value="Shotguns">Shotguns</option>
-              <option value="Sniper Rifles">Sniper Rifles</option>
-              <option value="Submachine Guns">Submachine Guns</option>
-              <option value="Throwables">Throwables</option>
-              {/* Add more categories as needed */}
-            </select>
-            <div className={styles.grid}>
-              {filteredWeapons.map((weapon) => (
-                <WeaponCard key={weapon.id} weapon={weapon} />
-              ))}
-            </div>
+      <div className="flex flex-col min-h-screen">
+        <div className="flex justify-between mb-4">
+          <select className="max-w-xs" onChange={handleCategoryChange} value={category}>
+            <option value="">All Categories</option>
+            <option value="Assault Rifles">Assault Rifles</option>
+            <option value="Handguns">Handguns</option>
+            <option value="Heavy Weapons">Heavy Weapons</option>
+            <option value="Light Machine Guns">Light Machine Guns</option>
+            <option value="Melee">Melee</option>
+            <option value="Miscellaneous">Miscellaneous</option>
+            <option value="Shotguns">Shotguns</option>
+            <option value="Sniper Rifles">Sniper Rifles</option>
+            <option value="Submachine Guns">Submachine Guns</option>
+            <option value="Throwables">Throwables</option>
+          </select>
+          <Input
+            type="text"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+        <div className="flex-1 overflow-auto">
+          <div className="grid grid-cols-6  gap-6">
+            {filteredWeapons.map((weapon) => (
+              <WeaponCard key={weapon.id} weapon={weapon} />
+            ))}
           </div>
         </div>
       </div>

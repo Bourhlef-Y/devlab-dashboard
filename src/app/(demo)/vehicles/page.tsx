@@ -1,9 +1,10 @@
+// pages/vehicles.tsx
 "use client";
 
 import { useState, useEffect } from 'react';
 import VehicleCard from '@/components/vehicle/VehicleCard';
 import { supabase } from '@/lib/supabaseClient';
-import styles from './Vehicles.module.css';
+import { Input } from "@/components/ui/input";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
 
 interface Vehicle {
@@ -15,6 +16,7 @@ interface Vehicle {
 const Vehicles = () => {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [filteredVehicles, setFilteredVehicles] = useState<Vehicle[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchVehicles = async () => {
@@ -39,30 +41,35 @@ const Vehicles = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-  const handleSearch = (term: string) => {
-    filterVehicles(term);
-  };
-
-  const filterVehicles = (searchTerm: string) => {
-    const filtered = vehicles.filter(v => v.name.toLowerCase().includes(searchTerm.toLowerCase()));
+  useEffect(() => {
+    const filtered = vehicles.filter(v =>
+      v.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      v.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (v.category && v.category.toLowerCase().includes(searchTerm.toLowerCase()))
+    );
     setFilteredVehicles(filtered);
-  };
+  }, [searchTerm, vehicles]);
 
   return (
     <ContentLayout title="Vehicles">
-        <div className={styles.vehicles}>
-          <div className={styles.mainContent}>
-            <div className={styles.content}>
-              <h1 className={styles.title}>Vehicles Page</h1>
-              <div className={styles.grid}>
-                {filteredVehicles.map((vehicle) => (
-                  <VehicleCard key={vehicle.id} vehicle={vehicle} />
-                ))}
-              </div>
-            </div>
+      <div className="flex flex-col min-h-screen">
+        <div className="flex justify-start mb-4">
+          <Input
+            type="text"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+        <div className="flex-1 overflow-auto">
+          <div className="grid grid-cols-5 gap-6">
+            {filteredVehicles.map((vehicle) => (
+              <VehicleCard key={vehicle.id} vehicle={vehicle} />
+            ))}
           </div>
         </div>
-      </ContentLayout>
+      </div>
+    </ContentLayout>
   );
 };
 

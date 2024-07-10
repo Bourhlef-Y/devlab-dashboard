@@ -1,15 +1,32 @@
+// pages/account.tsx
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { removeLoggedInCookie } from "@/utils/authCookie";
-import { useRouter } from 'next/navigation'; // Utilisez useRouter pour la redirection
+import { useRouter } from 'next/navigation';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ContentLayout } from "@/components/admin-panel/content-layout";
 
 export default function Account() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
   const router = useRouter();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const getUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      setUser(user);
+    };
+    getUser();
+  }, []);
+
 
   const handleChangePassword = async () => {
     if (password !== confirmPassword) {
@@ -27,38 +44,56 @@ export default function Account() {
     if (error) {
       setMessage(`Error: ${error.message}`);
     } else {
-      removeLoggedInCookie
+      removeLoggedInCookie();
       router.push('/login');
       setMessage("Password updated successfully.");
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4">
-      <h1 className="text-2xl mb-4">Change Password</h1>
-      <div className="w-full max-w-md">
-        <label className="block text-sm font-medium text-white-700">New Password</label>
-        <input
-          type="password"
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-slate-50 focus:border-zinc-500 sm:text-sm"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <label className="block text-sm font-medium text-white-700 mt-4">Confirm Password</label>
-        <input
-          type="password"
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-slate-50 focus:border-zinc-500 sm:text-sm"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        />
-        <button
-          onClick={handleChangePassword}
-          className="mt-4 w-full py-2 px-4 border border-transparent text-sm font-medium rounded-md text-black bg-zinc-50 hover:bg-zinc-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500"
-        >
-          Change Password
-        </button>
-        {message && <p className="mt-2 text-red-600">{message}</p>}
+  <ContentLayout title="Account">  
+      <div className="flex flex-col  justify-center  ">
+        <Tabs defaultValue="password" className="w-full max-w-md">
+          <TabsList className="grid w-full grid-cols-1 mb-4">
+            <TabsTrigger value="password">Change Password of ‎<p>{user?.email || "Loading..."}</p>
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="password">
+            <Card>
+              <CardHeader>
+                <CardTitle>Password</CardTitle>
+                <CardDescription>
+                  Change your password here. After saving, you'll be logged out.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-1">
+                <div className="space-y-1">
+                  <Label htmlFor="new-password">New password</Label>
+                  <Input
+                    id="new-password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+                <div className="space-y-1">
+                  <Label htmlFor="confirm-password">Confirm password</Label>
+                  <Input
+                    id="confirm-password"
+                    type="password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button onClick={handleChangePassword}>Save password</Button>
+              </CardFooter>
+              {message && <p className="mt-2 text-red-600">{message}</p>}
+            </Card>
+          </TabsContent>
+        </Tabs>
       </div>
-    </div>
+    </ContentLayout>
   );
 }

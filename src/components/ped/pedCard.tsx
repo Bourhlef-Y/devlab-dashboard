@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Swal from 'sweetalert2';
+import { toast } from "sonner";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 
 interface PedCardProps {
@@ -16,14 +16,7 @@ const PedCard: React.FC<PedCardProps> = ({ ped }) => {
   const handleCardClick = () => {
     navigator.clipboard.writeText(ped.id)
       .then(() => {
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Copy ID to clipboard successfully!",
-          showConfirmButton: false,
-          timer: 500,
-          background: '#333',
-        });
+        toast("Copied to clipboard successfuly !");
       })
       .catch((err) => {
         console.error('Failed to copy ID: ', err);

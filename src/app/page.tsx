@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { Snail } from "lucide-react";
 import { ArrowRightIcon, GitHubLogoIcon, DiscordLogoIcon } from "@radix-ui/react-icons";
-import { Toaster } from "@/components/ui/sonner"
 
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";

@@ -25,7 +25,7 @@ import {
 import { signOut } from "@/utils/signout";
 import { removeLoggedInCookie } from "@/utils/authCookie";
 import { useRouter } from "next/navigation"; // Utilisez useRouter au lieu de router
-
+import { Car } from "lucide-react";
 const handleSignOut = async () => {
   try {
     await signOut();

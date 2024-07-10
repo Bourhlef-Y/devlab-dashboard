@@ -1,65 +1,32 @@
-# [shadcn/ui sidebar](https://shadcn-ui-sidebar.salimi.my) &middot; [![Author Salimi](https://img.shields.io/badge/Author-Salimi-%3C%3E)](https://www.salimi.my)
+# ***DevLab***
 
-A stunning and functional retractable sidebar for Next.js built on top of [shadcn/ui](https://ui.shadcn.com) complete with desktop and mobile responsiveness.
 
-## Features
+<img src="https://github.com/Jak-Shyrak/DevLab/blob/main/logo.png" width="100" height="100">
 
-- Retractable mini and wide sidebar
-- Scrollable sidebar menu
-- Sheet menu for mobile
-- Grouped menu with labels
-- Collapsible submenu
-- Extracted menu items list
+DevLab is your go-to platform for developing and managing community game servers on FiveM.
+Our goal is to centralize all the necessary data to make developers' work easier.
 
-## Tech/framework used
+Visit the website : https://fivemdevlab.webflow.io/
 
-- Next.js 14
-- Shadcn/ui
-- Tailwind CSS
-- TypeScript
-- Zustand
+## *Key Features*
 
-## Starting the project locally
+- **Weapon Catalog:** Quickly access a complete list of available weapons, with their IDs and hash codes.
+- **Vehicle Catalog:** Easily find all vehicles with their detailed characteristics.
 
-1. Clone the repository
+- **Ped Catalog:** Browse through the different characters available for your servers.
 
-   ```bash
-   git clone https://github.com/salimi-my/shadcn-ui-sidebar
-   ```
+- **Filters and Search:** Use category filters and a search field to quickly find what you need.
 
-2. Install dependencies
+- **User-friendly Interface:** Enjoy an intuitive and easy-to-navigate user interface.
 
-   ```bash
-   cd shadcn-ui-sidebar
-   npm install
-   ```
+## *Benefits*
 
-3. Run the development server
+- **Time-saving:** All the information you need in one place.
+- **Efficiency:** Improve your workflow with organized and easily accessible data.
+- **Free Access:** Access all platform features for free.
+- **Regular Updates**: Receive regular updates with the latest data and improvements.
 
-   ```bash
-   npm run dev
-   ```
+## Authors
 
-## Demo
+- [@Jak-Shyrak](https://www.github.com/Jak-Shyrak)
 
-The app is hosted on Vercel. [Click here](https://shadcn-ui-sidebar.salimi.my) to visit.
-<br>
-Direct demo link: `https://shadcn-ui-sidebar.salimi.my`
-
-## Screenshots
-
-#### Light mode
-
-![Light mode](/screenshots/screenshot-1.png)
-
-#### Dark mode
-
-![Dark mode](/screenshots/screenshot-2.png)
-
-#### Mini sidebar
-
-![Mini sidebar](/screenshots/screenshot-3.png)
-
-#### Sheet menu
-
-<img src="/screenshots/screenshot-4.png" width="300">

@@ -11,22 +11,23 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
-import { User } from "@supabase/supabase-js";
+import { User } from "@supabase/supabase-js"; // Import the User type
 
 export default function Account() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
   const router = useRouter();
-  const [user, setUser] = useState<User | null>(null); // Correct the type here
+  const [user, setUser] = useState<User | null>(null); // Correct type here
 
   useEffect(() => {
     const getUser = async () => {
       const { data: { user } } = await supabase.auth.getUser();
-      setUser(user); // Now the type matches correctly
+      setUser(user);
     };
     getUser();
   }, []);
+
 
   const handleChangePassword = async () => {
     if (password !== confirmPassword) {
@@ -52,10 +53,10 @@ export default function Account() {
 
   return (
   <ContentLayout title="Account">  
-      <div className="flex flex-col justify-center">
+      <div className="flex flex-col  justify-center  ">
         <Tabs defaultValue="password" className="w-full max-w-md">
           <TabsList className="grid w-full grid-cols-1 mb-4">
-            <TabsTrigger value="password">Change Password of <p>{user?.email || "Loading..."}</p>
+            <TabsTrigger value="password">Change Password of ‎<p>{user?.email || "Loading..."}</p>
             </TabsTrigger>
           </TabsList>
           <TabsContent value="password">

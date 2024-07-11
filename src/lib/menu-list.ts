@@ -36,7 +36,7 @@ type Group = {
 export function getMenuList(pathname: string): Group[] {
   return [
     {
-      groupLabel: "",
+      groupLabel: "Main Content",
       menus: [
         {
           href: "/",
@@ -55,7 +55,7 @@ export function getMenuList(pathname: string): Group[] {
       ]
     },
     {
-      groupLabel: "Main Content",
+      groupLabel: "Game",
       menus: [
         
         {

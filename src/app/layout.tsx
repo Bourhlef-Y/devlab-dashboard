@@ -17,24 +17,6 @@ export const metadata: Metadata = {
       : `http://localhost:${process.env.PORT || 3000}`
   ),
   title: "DevLab",
-  description:
-    "A stunning and functional retractable sidebar for Next.js built on top of shadcn/ui complete with desktop and mobile responsiveness.",
-  alternates: {
-    canonical: "/"
-  },
-  openGraph: {
-    url: "/",
-    title: "DevLab",
-    description:
-      "A stunning and functional retractable sidebar for Next.js built on top of shadcn/ui complete with desktop and mobile responsiveness.",
-    type: "website"
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "DevLab",
-    description:
-      "A stunning and functional retractable sidebar for Next.js built on top of shadcn/ui complete with desktop and mobile responsiveness."
-  }
 };
 
 export default function RootLayout({

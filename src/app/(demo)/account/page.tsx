@@ -18,16 +18,15 @@ export default function Account() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
   const router = useRouter();
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(null); // Correct the type here
 
   useEffect(() => {
     const getUser = async () => {
       const { data: { user } } = await supabase.auth.getUser();
-      setUser(user);
+      setUser(user); // Now the type matches correctly
     };
     getUser();
   }, []);
-
 
   const handleChangePassword = async () => {
     if (password !== confirmPassword) {
@@ -53,10 +52,10 @@ export default function Account() {
 
   return (
   <ContentLayout title="Account">  
-      <div className="flex flex-col  justify-center  ">
+      <div className="flex flex-col justify-center">
         <Tabs defaultValue="password" className="w-full max-w-md">
           <TabsList className="grid w-full grid-cols-1 mb-4">
-            <TabsTrigger value="password">Change Password of ‎<p>{user?.email || "Loading..."}</p>
+            <TabsTrigger value="password">Change Password of <p>{user?.email || "Loading..."}</p>
             </TabsTrigger>
           </TabsList>
           <TabsContent value="password">

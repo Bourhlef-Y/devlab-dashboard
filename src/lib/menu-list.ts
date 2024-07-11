@@ -11,6 +11,7 @@ import {
   Sparkles,
   MessageSquareWarning,
   Keyboard,
+  LayoutDashboard
 } from "lucide-react";
 
 type Submenu = {
@@ -38,10 +39,17 @@ export function getMenuList(pathname: string): Group[] {
       groupLabel: "",
       menus: [
         {
+          href: "/",
+          label: "Home",
+          active: false,
+          icon: Home,
+          submenus: []
+        },
+        {
           href: "/dashboard",
           label: "DevLab",
           active: pathname.includes("/dashboard"),
-          icon: Home,
+          icon: LayoutDashboard,
           submenus: []
         }
       ]

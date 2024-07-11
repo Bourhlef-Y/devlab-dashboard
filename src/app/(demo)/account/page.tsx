@@ -30,13 +30,13 @@ export default function Account() {
 
   const handleChangePassword = async () => {
     if (password !== confirmPassword) {
-      setMessage("Les mots de passe ne correspondent pas");
+      setMessage("Passwords don't match");
       return;
     }
 
     const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
     if (!passwordRegex.test(password)) {
-      setMessage("Le mot de passe doit contenir au moins 8 caractères, une majuscule, un nombre et un caractère spécial.");
+      setMessage("The password must contain at least 8 characters, including a capital letter, a number and a special character.");
       return;
     }
 

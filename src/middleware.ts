@@ -32,9 +32,7 @@ export const config = {
         '/weapons/:path*',   // Applies to all paths under /weapons
         '/vehicles/:path*',  // Applies to all paths under /vehicles
         '/peds/:path*',      // Applies to all paths under /peds
-        '/profile/:path*',   // Applies to all paths under /profile
-        '/settings/:path*',  // Applies to all paths under /settings
-        '/logout/:path*',    // Applies to all paths under /logout
+        '/account/:path*',   // Applies to all paths under /account
         '/tools/:path*',     // Applies to all paths under /tools
         '/controls/:path*',  // Applies to all paths under /controls
     ],

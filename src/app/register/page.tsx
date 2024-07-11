@@ -72,7 +72,7 @@ export default function Register() {
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="password">Mot de passe</Label>
+              <Label htmlFor="password">Password</Label>
               <Input
                 id="password"
                 type="password"
@@ -82,7 +82,7 @@ export default function Register() {
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="confirmPassword">Confirmez le mot de passe</Label>
+              <Label htmlFor="confirmPassword">Confirm password</Label>
               <Input
                 id="confirmPassword"
                 type="password"

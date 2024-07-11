@@ -63,7 +63,7 @@ export default function Account() {
               <CardHeader>
                 <CardTitle>Password</CardTitle>
                 <CardDescription>
-                  Change your password here. After saving, you'll be logged out.
+                  Change your password here. You will be logged out !
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-1">

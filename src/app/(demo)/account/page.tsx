@@ -11,13 +11,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
+import { User } from "@supabase/supabase-js";
 
 export default function Account() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
   const router = useRouter();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     const getUser = async () => {
@@ -63,7 +64,7 @@ export default function Account() {
               <CardHeader>
                 <CardTitle>Password</CardTitle>
                 <CardDescription>
-                  Change your password here. You will be logged out !
+                  Change your password here. You will be logged out 
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-1">

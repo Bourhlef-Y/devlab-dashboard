@@ -23,7 +23,7 @@ export default function Register() {
   const [error, setError] = useState('');
   const router = useRouter();
 
-  const handleRegister = async (event) => {
+  const handleRegister = async (event: { preventDefault: () => void; }) => {
     event.preventDefault();
 
     if (password !== confirmPassword) {

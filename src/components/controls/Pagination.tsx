@@ -1,5 +1,5 @@
 // components/Pagination.tsx
-const Pagination = ({ controlsPerPage, totalControls, paginate, currentPage }) => {
+const Pagination = ({ controlsPerPage, totalControls, paginate, currentPage }: { controlsPerPage: number, totalControls: number, paginate: (number: number) => void, currentPage: number }) => {
     const pageNumbers = [];
   
     for (let i = 1; i <= Math.ceil(totalControls / controlsPerPage); i++) {

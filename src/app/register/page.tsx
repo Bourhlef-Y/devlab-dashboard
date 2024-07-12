@@ -33,7 +33,7 @@ export default function Register() {
 
     const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
     if (!passwordRegex.test(password)) {
-      setError("Le mot de passe doit contenir au moins 8 caractères, une majuscule, un nombre et un caractère spécial.");
+      setError("Password must contain at least 8 characters, one uppercase letter, one number and one special character.");
       return;
     }
 

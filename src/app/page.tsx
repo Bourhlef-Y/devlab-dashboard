@@ -2,9 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { Snail } from "lucide-react";
 import { ArrowRightIcon, GitHubLogoIcon, DiscordLogoIcon } from "@radix-ui/react-icons";
-
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
+import { Highlight } from "@/components/ui/hero-highlight";
 
 export default function HomePage() {
   return (
@@ -48,10 +48,13 @@ export default function HomePage() {
         <div className="container relative pb-10">
           <section className="mx-auto flex max-w-[980px] flex-col items-center gap-2 py-8 md:py-12 md:pb-8 lg:py-24 lg:pb-6">
             <h1 className="text-center text-3xl font-bold leading-tight tracking-tighter md:text-5xl lg:leading-[1.1]">
-            DevLab is coming soon !
+            <span className="dark:text-zinc-950 text-white">
+              <Highlight>DevLab</Highlight>  
+            </span>‎
+            is coming soon!
             </h1>
             <span className="max-w-[750px] text-center text-lg font-light text-foreground">
-            A tool for FiveM developers !
+              A tool for FiveM developers!
             </span>
             <div className="flex w-full items-center justify-center space-x-4 py-4 md:pb-6">
               <Button variant="default" asChild>
@@ -61,9 +64,7 @@ export default function HomePage() {
                 </Link>
               </Button>
               <Button variant="outline" asChild>
-                <Link href="/login">
-                  Login
-                </Link>
+                <Link href="/login">Login</Link>
               </Button>
             </div>
           </section>
@@ -82,7 +83,7 @@ export default function HomePage() {
               height={608}
               alt="demo-dark"
               priority
-              className="border border-zinc-600 rounded-xl shadow-sm hidden dark:block dark:shadow-gray-500/5"
+              className="border border-zinc-600 rounded-xl shadow-sm hidden dark:block dark:shadow-zinc-500/5"
             />
             <Image
               src="/demo-mobile-light-min.png"
@@ -100,8 +101,66 @@ export default function HomePage() {
             />
           </div>
         </div>
+        
+        {/* Features Section */}
+        <section className="bg-white dark:bg-zinc-950 py-16">
+          <div className="container mx-auto text-center">
+            <h2 className="text-3xl font-bold mb-8">Features</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="p-6 bg-white dark:bg-zinc-800 rounded-lg shadow-md">
+                <h3 className="text-xl font-semibold mb-4">Real-time Search</h3>
+                <p className="text-zinc-700 dark:text-zinc-300">
+                  Quickly find the references you need with our powerful real-time search functionality.
+                </p>
+              </div>
+              <div className="p-6 bg-white dark:bg-zinc-800 rounded-lg shadow-md">
+                <h3 className="text-xl font-semibold mb-4">Centralized Database</h3>
+                <p className="text-zinc-700 dark:text-zinc-300">
+                  Access all your game references from a single, organized database, saving you time and effort.
+                </p>
+              </div>
+              <div className="p-6 bg-white dark:bg-zinc-800 rounded-lg shadow-md">
+                <h3 className="text-xl font-semibold mb-4">User-Friendly Interface</h3>
+                <p className="text-zinc-700 dark:text-zinc-300">
+                  Enjoy a seamless experience with our intuitive and easy-to-use interface designed for developers.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* About Section */}
+        <section className="bg-white dark:bg-zinc-950 py-16">
+          <div className="container mx-auto text-center">
+            <h2 className="text-3xl font-bold mb-8">About</h2>
+            <p className="max-w-2xl mx-auto mb-8 text-zinc-700 dark:text-zinc-300">
+              As a FiveM developer, I often faced challenges finding in-game references from multiple websites, 
+              which wasted time and reduced productivity. This experience inspired me to create a centralized tool 
+              where all essential game references are available in one place, making it easier and more efficient 
+              for developers like myself to access the information they need without hassle. This project aims to 
+              streamline the workflow, save time, and boost productivity for the FiveM development community. 
+              This project is part of my portfolio for Holberton School. 
+            </p>
+            <div className="flex justify-center space-x-4 mb-8">
+              <Link href="https://www.linkedin.com/in/yacine-bourhlef-869975311/" className="text-blue-600 hover:underline">
+                LinkedIn
+              </Link>
+              <Link href="https://github.com/Bourhlef-Y" className="text-zinc-900 dark:text-zinc-100 hover:underline">
+                GitHub
+              </Link>
+              <Link href="https://discord.gg/PqRxDwDCnp" className="text-blue-400 hover:underline">
+                Discord
+              </Link>
+            </div>
+            <div>
+              <Link href="https://github.com/Bourhlef-Y/DevLab" className="text-zinc-900 dark:text-zinc-100 hover:underline">
+                GitHub Repository for this Project
+              </Link>
+            </div>
+          </div>
+        </section>
+        
       </main>
-      
     </div>
   );
 }

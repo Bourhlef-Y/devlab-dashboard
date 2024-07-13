@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 interface StatCardProps {
   title: string;
   count: number;
-  badge?: string; // Make the badge prop optional
+  badge?: string; // Ensure the badge prop is optional
 }
 
 const StatCard: React.FC<StatCardProps> = ({ title, count, badge }) => {

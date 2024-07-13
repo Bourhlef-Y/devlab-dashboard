@@ -7,7 +7,14 @@ import { supabase } from "@/lib/supabaseClient";
 import StatCard from "@/components/stats/StatCard";
 import DiscordCard from "@/components/stats/DiscordCard";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
-
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator
+} from "@/components/ui/breadcrumb";
 
 export default function DashboardPage() {
   const [weaponCount, setWeaponCount] = useState(0);

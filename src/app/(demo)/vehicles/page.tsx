@@ -9,9 +9,9 @@ import { ContentLayout } from "@/components/admin-panel/content-layout";
 interface Vehicle {
   id: string;
   name: string;
-  category: string;
-  hash: string;
   image: string;
+  category: string; // Required
+  hash: string;     // Required
 }
 
 const Vehicles = () => {
@@ -23,15 +23,21 @@ const Vehicles = () => {
     const fetchVehicles = async () => {
       const { data, error } = await supabase
         .from('vehicles')
-        .select('id, name, category, hash, image') // Include 'category' and 'hash' in select
+        .select('id, name, image') // Add category and hash if they exist
         .order('name', { ascending: true });
 
       if (error) {
         console.error('Error fetching vehicles:', error);
       } else {
-        console.log('Fetched vehicles:', data); // Log the fetched data
-        setVehicles(data);
-        setFilteredVehicles(data);
+        console.log('Fetched vehicles:', data);
+        // Assuming the fetched data may not have category and hash
+        const vehiclesWithDefaultFields = data.map((vehicle: Partial<Vehicle>) => ({
+          ...vehicle,
+          category: vehicle.category || 'Unknown',
+          hash: vehicle.hash || 'N/A',
+        })) as Vehicle[];
+        setVehicles(vehiclesWithDefaultFields);
+        setFilteredVehicles(vehiclesWithDefaultFields);
       }
     };
 

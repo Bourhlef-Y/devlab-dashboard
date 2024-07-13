@@ -1,4 +1,3 @@
-// components/ControlsTable.tsx
 import { useEffect, useState } from "react";
 import Papa from "papaparse";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -13,8 +12,15 @@ import {
 } from "@/components/ui/pagination";
 import { Input } from "@/components/ui/input";
 
+interface Control {
+  id: string;
+  name: string;
+  control: string;
+  xbox: string;
+}
+
 const ControlsTable = () => {
-  const [controlsData, setControlsData] = useState([]);
+  const [controlsData, setControlsData] = useState<Control[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(17);
   const [searchTerm, setSearchTerm] = useState("");
@@ -27,13 +33,13 @@ const ControlsTable = () => {
           header: true,
           skipEmptyLines: true,
           complete: (results) => {
-            setControlsData(results.data);
+            setControlsData(results.data as Control[]);
           },
         });
       });
   }, []);
 
-  const handleCopy = (text) => {
+  const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text).then(() => {
       toast("Copied to clipboard!");
     }).catch((error) => {
@@ -41,7 +47,7 @@ const ControlsTable = () => {
     });
   };
 
-  const handlePageChange = (pageNumber) => {
+  const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
 

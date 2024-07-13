@@ -4,7 +4,7 @@
 import Link from "next/link";
 import { LayoutGrid, LogOut, User } from "lucide-react";
 import { useState, useEffect } from "react";
-import { supabase } from "@/lib/supabaseClient"; // Assurez-vous d'importer votre client Supabase
+import { supabase } from "@/lib/supabaseClient"; 
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -24,26 +24,35 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { signOut } from "@/utils/signout";
 import { removeLoggedInCookie } from "@/utils/authCookie";
-import { useRouter } from "next/navigation"; // Utilisez useRouter au lieu de router
+import { useRouter } from "next/navigation"; 
 import { Car } from "lucide-react";
+
 const handleSignOut = async () => {
   try {
     await signOut();
     removeLoggedInCookie();
     console.error('Utilisateur déconnecté');
-    useRouter().push('/login'); // Redirigez vers la page de connexion après la déconnexion
+    useRouter().push('/login'); 
   } catch (error) {
     console.error('Erreur lors de la déconnexion:', error);
   }
 };
 
+interface User {
+  email: string;
+}
+
 export function UserNav() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     const getUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      setUser(user);
+      const { data, error } = await supabase.auth.getUser();
+      if (error) {
+        console.error('Error fetching user:', error);
+      } else {
+        setUser(data.user as User);
+      }
     };
     getUser();
   }, []);
@@ -73,7 +82,6 @@ export function UserNav() {
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">{user?.email || "Loading..."}</p>
-            {/* Ajoutez d'autres informations utilisateur si nécessaire */}
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />

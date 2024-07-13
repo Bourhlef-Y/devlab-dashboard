@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, KeyboardEvent } from 'react';
 import { Card, CardHeader, CardContent, CardFooter, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -25,7 +25,7 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
     setIsModalOpen(false);
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Escape') {
       setIsModalOpen(false);
     }
@@ -44,11 +44,11 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
               <Image src={tool.image} alt={tool.name} layout="fill" objectFit="cover" className="rounded-t-lg" />
             </div>
           )}
-          <CardDescription className="mt-4 ">{tool.description}</CardDescription>
+          <CardDescription className="mt-4">{tool.description}</CardDescription>
         </CardContent>
         <CardFooter>
           <Link href={tool.download} target="_blank" passHref>
-            <Button as="a">
+            <Button>
               Click here to Use it
             </Button>
           </Link>

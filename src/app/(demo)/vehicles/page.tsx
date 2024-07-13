@@ -1,4 +1,3 @@
-// pages/vehicles.tsx
 "use client";
 
 import { useState, useEffect } from 'react';
@@ -10,6 +9,8 @@ import { ContentLayout } from "@/components/admin-panel/content-layout";
 interface Vehicle {
   id: string;
   name: string;
+  category: string;
+  hash: string;
   image: string;
 }
 
@@ -22,7 +23,7 @@ const Vehicles = () => {
     const fetchVehicles = async () => {
       const { data, error } = await supabase
         .from('vehicles')
-        .select('id, name, image') // Include 'image' in select
+        .select('id, name, category, hash, image') // Include 'category' and 'hash' in select
         .order('name', { ascending: true });
 
       if (error) {
@@ -45,7 +46,7 @@ const Vehicles = () => {
     const filtered = vehicles.filter(v =>
       v.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       v.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (v.category && v.category.toLowerCase().includes(searchTerm.toLowerCase()))
+      v.category.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredVehicles(filtered);
   }, [searchTerm, vehicles]);

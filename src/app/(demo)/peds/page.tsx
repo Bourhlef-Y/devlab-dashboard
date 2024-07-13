@@ -8,6 +8,9 @@ import { ContentLayout } from "@/components/admin-panel/content-layout";
 
 interface Ped {
   id: string;
+  name: string;
+  category: string;
+  hash: string;
   props: string;
   image: string;
 }
@@ -21,7 +24,7 @@ const Peds = () => {
     const fetchPeds = async () => {
       const { data, error } = await supabase
         .from('peds')
-        .select('id, props, image')
+        .select('id, name, category, hash, props, image')
         .order('props', { ascending: true });
 
       if (error) {

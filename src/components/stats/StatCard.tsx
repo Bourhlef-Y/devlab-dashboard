@@ -1,23 +1,21 @@
 // components/stats/StatCard.tsx
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 interface StatCardProps {
   title: string;
   count: number;
+  badge?: string; // Make the badge prop optional
 }
 
-const StatCard: React.FC<StatCardProps> = ({ title, count }) => {
+const StatCard: React.FC<StatCardProps> = ({ title, count, badge }) => {
   return (
-    <Card className="relative w-full">
-      <Badge variant="outline" className="absolute top-2 right-2 dark:bg-zinc-50 dark:text-zinc-800 bg-zinc-900 text-zinc-50 " >Up to Date!</Badge>
-      <CardHeader>
-        <CardTitle>{title}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <p className="text-2xl font-bold">{count}</p>
-      </CardContent>
-    </Card>
+    <div className="p-4 bg-white dark:bg-zinc-800 rounded-lg shadow-md relative">
+      <div className="absolute top-2 right-2">
+        {badge && <Badge variant="outline">{badge}</Badge>}
+      </div>
+      <h3 className="text-xl font-semibold mb-2">{title}</h3>
+      <p className="text-2xl font-bold">{count}</p>
+    </div>
   );
 };
 

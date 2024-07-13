@@ -7,14 +7,7 @@ import { supabase } from "@/lib/supabaseClient";
 import StatCard from "@/components/stats/StatCard";
 import DiscordCard from "@/components/stats/DiscordCard";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator
-} from "@/components/ui/breadcrumb";
+
 
 export default function DashboardPage() {
   const [weaponCount, setWeaponCount] = useState(0);
@@ -43,7 +36,6 @@ export default function DashboardPage() {
 
   return (
     <ContentLayout title="Dashboard">
-
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <StatCard title="Total Weapons" count={weaponCount} badge="Up to Date!" />
         <StatCard title="Total Vehicles" count={vehicleCount} badge="Up to Date!" />

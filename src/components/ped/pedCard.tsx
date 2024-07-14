@@ -5,7 +5,6 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 interface PedCardProps {
   ped: {
     id: string;
-    name: string;
     category: string;
     hash: string;
     image: string;
@@ -16,7 +15,7 @@ const PedCard: React.FC<PedCardProps> = ({ ped }) => {
   const handleCardClick = () => {
     navigator.clipboard.writeText(ped.id)
       .then(() => {
-        toast("Copied to clipboard successfuly !");
+        toast("Copied to clipboard successfully!");
       })
       .catch((err) => {
         console.error('Failed to copy ID: ', err);
@@ -27,7 +26,7 @@ const PedCard: React.FC<PedCardProps> = ({ ped }) => {
     <Card className="cursor-pointer max-w-52 w-full h-full" onClick={handleCardClick}>
       <CardContent>
         <div className="relative w-full h-48">
-          <Image src={ped.image} alt={ped.name} layout="fill" objectFit="contain" />
+          <Image src={ped.image} alt={ped.id} layout="fill" objectFit="contain" />
         </div>
       </CardContent>
       <CardFooter>

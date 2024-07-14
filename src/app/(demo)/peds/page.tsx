@@ -5,9 +5,11 @@ import PedCard from '@/components/ped/pedCard';
 import { supabase } from '@/lib/supabaseClient';
 import styles from './Peds.module.css';
 import { ContentLayout } from "@/components/admin-panel/content-layout";
+import { Input } from "@/components/ui/input";
 
 interface Ped {
   id: string;
+  name: string; // Add name to the interface
   props: string;
   image: string;
   category: string; // Required
@@ -23,22 +25,21 @@ const Peds = () => {
     const fetchPeds = async () => {
       const { data, error } = await supabase
         .from('peds')
-        .select('id, props, image')
+        .select('id, props, image') // Include 'name' in select
         .order('props', { ascending: true });
 
-        if (error) {
-          console.error('Error fetching peds:', error);
-        } else {
-          console.log('Fetched peds:', data);
-          // Assuming the fetched data may not have category and hash
-          const pedsWithDefaultFields = data.map((ped: Partial<Ped>) => ({
-            ...ped,
-            category: ped.category || 'Unknown',
-            hash: ped.hash || 'N/A',
-          })) as Ped[];
-          setPeds(pedsWithDefaultFields);
-          setFilteredPeds(pedsWithDefaultFields);
-        }
+      if (error) {
+        console.error('Error fetching peds:', error);
+      } else {
+        console.log('Fetched peds:', data);
+        const pedsWithDefaultFields = data.map((ped: Partial<Ped>) => ({
+          ...ped,
+          category: ped.category || 'Unknown',
+          hash: ped.hash || 'N/A',
+        })) as Ped[];
+        setPeds(pedsWithDefaultFields);
+        setFilteredPeds(pedsWithDefaultFields);
+      }
     };
 
     fetchPeds();
@@ -55,7 +56,7 @@ const Peds = () => {
       v.category.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredPeds(filtered);
-  }, [searchTerm, Peds]);
+  }, [searchTerm, peds]); // Use 'peds' instead of 'Peds'
 
   return (
     <ContentLayout title="Peds">
@@ -63,10 +64,22 @@ const Peds = () => {
         <div className={styles.mainContent}>
           <div className={styles.content}>
             <h1 className={styles.title}>Peds Page</h1>
+            <div className="flex justify-start mb-4">
+          <Input
+            type="text"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
             <div className={styles.grid}>
-              {filteredPeds.map((ped) => (
-                <PedCard key={ped.id} ped={ped} />
-              ))}
+              {filteredPeds.length > 0 ? (
+                filteredPeds.map((ped) => (
+                  <PedCard key={ped.id} ped={ped} />
+                ))
+              ) : (
+                <p>No peds found</p>
+              )}
             </div>
           </div>
         </div>

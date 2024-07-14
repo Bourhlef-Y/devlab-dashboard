@@ -8,6 +8,7 @@ import WeaponCard from '@/components/weapon/WeaponCard';
 import { supabase } from '@/lib/supabaseClient';
 import { Input } from "@/components/ui/input";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
+import { Select, SelectItem, SelectContent, SelectTrigger, SelectValue, SelectLabel } from "@/components/ui/select";
 
 interface Weapon {
   id: string;
@@ -21,7 +22,7 @@ const Weapons = () => {
   const [weapons, setWeapons] = useState<Weapon[]>([]);
   const [filteredWeapons, setFilteredWeapons] = useState<Weapon[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [category, setCategory] = useState<string>('');
+  const [category, setCategory] = useState<string>('all');
   const router = useRouter();
 
   useEffect(() => {
@@ -50,8 +51,8 @@ const Weapons = () => {
     filterWeapons(category, searchTerm);
   }, [category, searchTerm, weapons]);
 
-  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCategory(e.target.value);
+  const handleCategoryChange = (value: string) => {
+    setCategory(value);
   };
 
   const handleSearch = (term: string) => {
@@ -60,7 +61,7 @@ const Weapons = () => {
 
   const filterWeapons = (category: string, searchTerm: string) => {
     let filtered = weapons;
-    if (category) {
+    if (category !== 'all') {
       filtered = filtered.filter(w => w.category === category);
     }
     if (searchTerm) {
@@ -73,28 +74,33 @@ const Weapons = () => {
     <ContentLayout title="Weapons">
       <div className="flex flex-col min-h-screen">
         <div className="flex justify-between mb-4">
-          <select className="max-w-xs" onChange={handleCategoryChange} value={category}>
-            <option value="">All Categories</option>
-            <option value="Assault Rifles">Assault Rifles</option>
-            <option value="Handguns">Handguns</option>
-            <option value="Heavy Weapons">Heavy Weapons</option>
-            <option value="Light Machine Guns">Light Machine Guns</option>
-            <option value="Melee">Melee</option>
-            <option value="Miscellaneous">Miscellaneous</option>
-            <option value="Shotguns">Shotguns</option>
-            <option value="Sniper Rifles">Sniper Rifles</option>
-            <option value="Submachine Guns">Submachine Guns</option>
-            <option value="Throwables">Throwables</option>
-          </select>
           <Input
             type="text"
             placeholder="Search..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
+          <Select onValueChange={handleCategoryChange} value={category}>
+            <SelectTrigger className="max-w-xs">
+              <SelectValue placeholder="Select a category" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Categories</SelectItem>
+              <SelectItem value="Assault Rifles">Assault Rifles</SelectItem>
+              <SelectItem value="Handguns">Handguns</SelectItem>
+              <SelectItem value="Heavy Weapons">Heavy Weapons</SelectItem>
+              <SelectItem value="Light Machine Guns">Light Machine Guns</SelectItem>
+              <SelectItem value="Melee">Melee</SelectItem>
+              <SelectItem value="Miscellaneous">Miscellaneous</SelectItem>
+              <SelectItem value="Shotguns">Shotguns</SelectItem>
+              <SelectItem value="Sniper Rifles">Sniper Rifles</SelectItem>
+              <SelectItem value="Submachine Guns">Submachine Guns</SelectItem>
+              <SelectItem value="Throwables">Throwables</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
         <div className="flex-1 overflow-auto">
-          <div className="grid grid-cols-6  gap-6">
+          <div className="grid grid-cols-6 gap-6">
             {filteredWeapons.map((weapon) => (
               <WeaponCard key={weapon.id} weapon={weapon} />
             ))}

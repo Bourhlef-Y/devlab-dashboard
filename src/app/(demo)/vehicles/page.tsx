@@ -28,7 +28,7 @@ const Vehicles = () => {
   useEffect(() => {
     const fetchVehicles = async () => {
       const { data, error } = await supabase
-        .from('vehicles_duplicate')
+        .from('vehicles')
         .select('*')
         .order('name', { ascending: true });
 

@@ -1,7 +1,7 @@
 // components/vehicle/VehicleCard.tsx
 import Image from 'next/image';
-import { toast } from "sonner";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { toast } from "sonner";
 
 interface VehicleCardProps {
   vehicle: {
@@ -25,7 +25,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle }) => {
   };
 
   return (
-    <Card className="cursor-pointer max-w-xs" onClick={handleCardClick}>
+    <Card className="cursor-pointer" onClick={handleCardClick}>
       <CardHeader>
         <CardTitle>{vehicle.name}</CardTitle>
         <CardDescription>{vehicle.category}</CardDescription>
@@ -36,7 +36,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle }) => {
         </div>
       </CardContent>
       <CardFooter>
-        <div className="truncate">ID: {vehicle.id}</div>
+        <div>ID: {vehicle.id}</div>
       </CardFooter>
     </Card>
   );

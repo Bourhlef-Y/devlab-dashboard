@@ -5,6 +5,7 @@ import { ArrowRightIcon, GitHubLogoIcon, DiscordLogoIcon } from "@radix-ui/react
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
 import { Highlight } from "@/components/ui/hero-highlight";
+import { Separator } from "@/components/ui/separator"
 
 export default function HomePage() {
   return (
@@ -19,7 +20,17 @@ export default function HomePage() {
             <span className="font-bold">DevLab</span>
             <span className="sr-only">DevLab</span>
           </Link>
+          <div className="flex h-5 items-center space-x-4 text-sm pl-10">
+              <Link href="#Features">
+                <div>Features</div>
+              </Link>
+              <Separator orientation="vertical" />
+              <Link href="#About">
+              <div>About</div>
+              </Link>
+            </div>
           <nav className="ml-auto flex items-center gap-2">
+            
             <Button
               variant="outline"
               size="icon"
@@ -103,7 +114,7 @@ export default function HomePage() {
         </div>
         
         {/* Features Section */}
-        <section className="bg-white dark:bg-zinc-950 py-16">
+        <section id="Features" className="bg-white dark:bg-zinc-950 py-16">
           <div className="container mx-auto text-center">
             <h2 className="text-3xl font-bold mb-8">Features</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -130,7 +141,7 @@ export default function HomePage() {
         </section>
 
         {/* About Section */}
-        <section className="bg-white dark:bg-zinc-950 py-16">
+        <section  id="About" className="bg-white dark:bg-zinc-950 py-16">
           <div className="container mx-auto text-center">
             <h2 className="text-3xl font-bold mb-8">About</h2>
             <p className="max-w-2xl mx-auto mb-8 text-zinc-700 dark:text-zinc-300">

@@ -98,7 +98,7 @@ export default function Register() {
         <CardFooter>
           <div className="mt-4 text-center text-sm">
             Already have an account?{" "}
-            <Link href="/login" className="underline">
+            <Link href="/dashboard" className="underline">
               Login
             </Link>
           </div>

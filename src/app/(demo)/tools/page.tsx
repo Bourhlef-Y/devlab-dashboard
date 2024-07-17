@@ -1,9 +1,8 @@
 // pages/useful-tools.tsx
 "use client";
 
-import ToolCard from '@/components/tool/ToolCard';
-import { ContentLayout } from '@/components/admin-panel/content-layout';
-import { Download } from 'lucide-react';
+import ToolCard from '@/components/tool/ToolCard'; // Import the ToolCard component
+import { ContentLayout } from '@/components/admin-panel/content-layout'; // Import the ContentLayout component
 
 const tools = [
   {
@@ -33,19 +32,20 @@ const tools = [
     author: "Yacine Bourhlef",
   },
   
-  // Ajoutez d'autres outils ici
+  // Add more tools here
 ];
 
+// Define the UsefulTools component
 const UsefulTools = () => {
   return (
-    <ContentLayout title="Useful Tools">
+    <ContentLayout title="Useful Tools"> {/* Use ContentLayout with title "Useful Tools" */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {tools.map((tool, index) => (
-          <ToolCard key={index} tool={tool} />
+          <ToolCard key={index} tool={tool} /> // Render ToolCard for each tool
         ))}
       </div>
     </ContentLayout>
   );
 };
 
-export default UsefulTools;
+export default UsefulTools; // Export UsefulTools component as default

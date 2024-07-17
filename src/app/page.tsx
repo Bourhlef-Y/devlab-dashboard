@@ -1,11 +1,11 @@
-import Link from "next/link";
-import Image from "next/image";
-import { Snail } from "lucide-react";
-import { ArrowRightIcon, GitHubLogoIcon, DiscordLogoIcon } from "@radix-ui/react-icons";
-import { Button } from "@/components/ui/button";
-import { ModeToggle } from "@/components/mode-toggle";
-import { Highlight } from "@/components/ui/hero-highlight";
-import { Separator } from "@/components/ui/separator"
+import Link from "next/link"; // Import Link component from Next.js for navigation
+import Image from "next/image"; // Import Image component from Next.js for optimized images
+import { Snail } from "lucide-react"; // Import Snail icon from lucide-react
+import { ArrowRightIcon, GitHubLogoIcon, DiscordLogoIcon } from "@radix-ui/react-icons"; // Import icons from @radix-ui/react-icons
+import { Button } from "@/components/ui/button"; // Import Button component
+import { ModeToggle } from "@/components/mode-toggle"; // Import ModeToggle component for theme switching
+import { Highlight } from "@/components/ui/hero-highlight"; // Import Highlight component
+import { Separator } from "@/components/ui/separator"; // Import Separator component
 
 export default function HomePage() {
   return (
@@ -30,7 +30,6 @@ export default function HomePage() {
               </Link>
             </div>
           <nav className="ml-auto flex items-center gap-2">
-            
             <Button
               variant="outline"
               size="icon"

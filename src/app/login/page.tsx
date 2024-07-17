@@ -1,29 +1,30 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabaseClient";
-import { setLoggedInCookie } from "@/utils/authCookie";
-import Image from "next/image";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import styles from './login.module.css';
+import { useState } from "react"; // Import useState from React
+import { useRouter } from "next/navigation"; // Import useRouter for navigation
+import { supabase } from "@/lib/supabaseClient"; // Import Supabase client
+import { setLoggedInCookie } from "@/utils/authCookie"; // Import function to set logged-in cookie
+import Image from "next/image"; // Import Image component from Next.js
+import Link from "next/link"; // Import Link component from Next.js
+import { Button } from "@/components/ui/button"; // Import Button component
+import { Input } from "@/components/ui/input"; // Import Input component
+import { Label } from "@/components/ui/label"; // Import Label component
+import styles from './login.module.css'; // Import CSS module for styling
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const router = useRouter();
+  const [email, setEmail] = useState(""); // State for email input
+  const [password, setPassword] = useState(""); // State for password input
+  const [error, setError] = useState(""); // State for error messages
+  const router = useRouter(); // Initialize useRouter for navigation
 
+  // Function to handle login
   const handleLogin = async () => {
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { error } = await supabase.auth.signInWithPassword({ email, password }); // Supabase login
     if (error) {
-      setError(error.message);
+      setError(error.message); // Set error message if login fails
     } else {
-      router.push('/dashboard');
-      setLoggedInCookie();
+      router.push('/dashboard'); // Redirect to dashboard on successful login
+      setLoggedInCookie(); // Set logged-in cookie
     }
   };
 
@@ -86,7 +87,7 @@ export default function Login() {
           alt="Image"
           width="1920"
           height="1080"
-          className="h-full pl-7 w-full object-contain  "
+          className="h-full pl-7 w-full object-contain"
         />
       </div>
     </div>

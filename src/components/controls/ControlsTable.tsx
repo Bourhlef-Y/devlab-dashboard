@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import Papa from "papaparse";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { toast } from "sonner";
+import { useEffect, useState } from "react"; // Import hooks for state and lifecycle management
+import Papa from "papaparse"; // Import the PapaParse library for CSV parsing
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"; // Import Table components
+import { toast } from "sonner"; // Import toast for notifications
 import {
   Pagination,
   PaginationContent,
@@ -9,9 +9,10 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination";
-import { Input } from "@/components/ui/input";
+} from "@/components/ui/pagination"; // Import Pagination components
+import { Input } from "@/components/ui/input"; // Import Input component
 
+// Define the structure of a Control object
 interface Control {
   id: string;
   name: string;
@@ -19,12 +20,18 @@ interface Control {
   xbox: string;
 }
 
+// Define the ControlsTable functional component
 const ControlsTable = () => {
+  // State for storing control data
   const [controlsData, setControlsData] = useState<Control[]>([]);
+  // State for current page in pagination
   const [currentPage, setCurrentPage] = useState(1);
+  // Number of items per page for pagination
   const [itemsPerPage] = useState(17);
+  // State for the search term
   const [searchTerm, setSearchTerm] = useState("");
 
+  // Fetch the controls data when the component mounts
   useEffect(() => {
     fetch('/controls.csv')
       .then(response => response.text())
@@ -39,6 +46,7 @@ const ControlsTable = () => {
       });
   }, []);
 
+  // Handle copying text to clipboard
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text).then(() => {
       toast("Copied to clipboard!");
@@ -47,10 +55,12 @@ const ControlsTable = () => {
     });
   };
 
+  // Handle page change for pagination
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
 
+  // Filter data based on the search term
   const filteredData = controlsData.filter(control =>
     control.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
     control.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -58,10 +68,12 @@ const ControlsTable = () => {
     control.xbox.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Calculate indexes for current items
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
+  // Calculate total pages for pagination
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
   return (
@@ -125,4 +137,5 @@ const ControlsTable = () => {
   );
 };
 
+// Export the ControlsTable component as the default export
 export default ControlsTable;

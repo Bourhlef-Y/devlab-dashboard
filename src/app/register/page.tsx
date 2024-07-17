@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
-import { useRouter } from 'next/navigation'; // Utilisez useRouter pour la redirection
+import { useRouter } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -16,7 +16,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export default function Register() {
-  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -27,7 +26,7 @@ export default function Register() {
     event.preventDefault();
 
     if (password !== confirmPassword) {
-      setError("Les mots de passe ne correspondent pas");
+      setError("Passwords do not match");
       return;
     }
 
@@ -43,9 +42,9 @@ export default function Register() {
     } else {
       const user = data.user;
       if (user) {
-        router.push('/login'); // Redirigez l'utilisateur vers la page de connexion
+        router.push('/login');
       } else {
-        setError("Utilisateur non trouvé après l'inscription");
+        setError("User not found after registration");
       }
     }
   };
@@ -98,7 +97,7 @@ export default function Register() {
         <CardFooter>
           <div className="mt-4 text-center text-sm">
             Already have an account?{" "}
-            <Link href="/dashboard" className="underline">
+            <Link href="/login" className="underline">
               Login
             </Link>
           </div>

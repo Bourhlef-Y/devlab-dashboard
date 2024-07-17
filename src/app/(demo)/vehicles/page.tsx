@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { ContentLayout } from "@/components/admin-panel/content-layout";
 import { Select, SelectItem, SelectContent, SelectTrigger, SelectValue, SelectLabel } from "@/components/ui/select";
 
+// Define the Vehicle interface
 interface Vehicle {
   id: string;
   name: string;
@@ -18,13 +19,15 @@ interface Vehicle {
   image: string;
 }
 
+// Define the Vehicles component
 const Vehicles = () => {
-  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
-  const [filteredVehicles, setFilteredVehicles] = useState<Vehicle[]>([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [category, setCategory] = useState<string>('all');
+  const [vehicles, setVehicles] = useState<Vehicle[]>([]); // State for vehicles
+  const [filteredVehicles, setFilteredVehicles] = useState<Vehicle[]>([]); // State for filtered vehicles
+  const [searchTerm, setSearchTerm] = useState(""); // State for search term
+  const [category, setCategory] = useState<string>('all'); // State for category
   const router = useRouter();
 
+  // Fetch vehicles data when component mounts
   useEffect(() => {
     const fetchVehicles = async () => {
       const { data, error } = await supabase
@@ -33,52 +36,53 @@ const Vehicles = () => {
         .order('name', { ascending: true });
 
       if (error) {
-        console.error('Error fetching vehicles:', error);
+        console.error('Error fetching vehicles:', error); // Log error if fetching fails
       } else {
-        setVehicles(data);
-        setFilteredVehicles(data);
+        setVehicles(data); // Set vehicles state
+        setFilteredVehicles(data); // Set filtered vehicles state
       }
     };
 
-    fetchVehicles();
+    fetchVehicles(); // Call fetchVehicles function
 
-    const intervalId = setInterval(fetchVehicles, 50000);
+    const intervalId = setInterval(fetchVehicles, 50000); // Refresh data every 50 seconds
 
-    return () => clearInterval(intervalId);
+    return () => clearInterval(intervalId); // Clear interval on component unmount
   }, []);
 
+  // Filter vehicles based on category and search term
   useEffect(() => {
     filterVehicles(category, searchTerm);
   }, [category, searchTerm, vehicles]);
 
   const handleCategoryChange = (value: string) => {
-    setCategory(value);
+    setCategory(value); // Update category state
   };
 
   const handleSearch = (term: string) => {
-    setSearchTerm(term);
+    setSearchTerm(term); // Update search term state
   };
 
   const filterVehicles = (category: string, searchTerm: string) => {
     let filtered = vehicles;
     if (category !== 'all') {
-      filtered = filtered.filter(w => w.category === category);
+      filtered = filtered.filter(w => w.category === category); // Filter by category
     }
     if (searchTerm) {
-      filtered = filtered.filter(w => w.name.toLowerCase().includes(searchTerm.toLowerCase()));
+      filtered = filtered.filter(w => w.name.toLowerCase().includes(searchTerm.toLowerCase())); // Filter by search term
     }
-    setFilteredVehicles(filtered);
+    setFilteredVehicles(filtered); // Set filtered vehicles state
   };
 
   return (
-    <ContentLayout title="Vehicles">
+    <ContentLayout title="Vehicles"> {/* Use ContentLayout with title "Vehicles" */}
       <div className="flex flex-col min-h-screen">
         <div className="flex justify-between mb-4">
           <Input
             type="text"
             placeholder="Search..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => setSearchTerm(e.target.value)} // Update search term on input change
           />
           <Select onValueChange={handleCategoryChange} value={category}>
             <SelectTrigger className="max-w-xs">
@@ -116,7 +120,7 @@ const Vehicles = () => {
         <div className="flex-1 overflow-auto">
           <div className="grid grid-cols-6 gap-6">
             {filteredVehicles.map((vehicle) => (
-              <VehicleCard key={vehicle.id} vehicle={vehicle} />
+              <VehicleCard key={vehicle.id} vehicle={vehicle} /> // Render VehicleCard for each filtered vehicle
             ))}
           </div>
         </div>
@@ -125,4 +129,4 @@ const Vehicles = () => {
   );
 };
 
-export default Vehicles;
+export default Vehicles; // Export Vehicles component as default

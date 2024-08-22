@@ -153,21 +153,12 @@ export function Menu({ isOpen }: MenuProps) {
                 <p className="text-xs md:text-sm leading-loose text-muted-foreground text-left">
                   Tool made by {" "}
                   <Link
-                    href="https://github.com/Bourhlef-Y"
+                    href="https://discord.gg/PqRxDwDCnp"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="font-medium underline underline-offset-4"
                   >
                     Yacine B
-                  </Link>
-                  . For the moment the source code is available on{" "}
-                  <Link
-                    href="https://github.com/Bourhlef-Y/devlab-dashboard"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-medium underline underline-offset-4"
-                  >
-                    GitHub
                   </Link>
                   .
                 </p>

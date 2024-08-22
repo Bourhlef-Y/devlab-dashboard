@@ -36,9 +36,6 @@ export default function HomePage() {
               className="rounded-full w-8 h-8 bg-background"
               asChild
             >
-              <Link href="https://github.com/Bourhlef-Y/DevLab">
-                <GitHubLogoIcon className="h-[1.2rem] w-[1.2rem]" />
-              </Link>
             </Button>
             <Button
               variant="outline"
@@ -152,20 +149,12 @@ export default function HomePage() {
               This project is part of my portfolio for Holberton School. 
             </p>
             <div className="flex justify-center space-x-4 mb-8">
-              <Link href="https://www.linkedin.com/in/yacine-bourhlef-869975311/" className="text-blue-600 hover:underline">
-                LinkedIn
-              </Link>
-              <Link href="https://github.com/Bourhlef-Y" className="text-zinc-900 dark:text-zinc-100 hover:underline">
-                GitHub
-              </Link>
               <Link href="https://discord.gg/PqRxDwDCnp" className="text-blue-400 hover:underline">
                 Discord
               </Link>
             </div>
             <div>
-              <Link href="https://github.com/Bourhlef-Y/DevLab" className="text-zinc-900 dark:text-zinc-100 hover:underline">
-                GitHub Repository for this Project
-              </Link>
+              This project was made for help FiveM developers
             </div>
           </div>
         </section>

@@ -26,10 +26,10 @@ const tools = [
     author: "Vespura",
   },
   {
-    name: "Server Viewer",
+    name: "Server Viewer [Development not finished]",
     description: "A simple tool to view your server's resources and players.",
     download: "https://server-viewer.netlify.app/",
-    author: "Yacine Bourhlef",
+    author: "Jak Shyrak",
   },
   
   // Add more tools here

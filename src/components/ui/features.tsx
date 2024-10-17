@@ -14,7 +14,7 @@ export function Features() {
                 <Badge variant="outline" className="ml-2">Up to Date</Badge>
               </CardTitle>
               <CardDescription>
-                Quickly find what you need with our real-time search functionality.
+                Quickly find the references you need with our powerful real-time search functionality.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -24,29 +24,29 @@ export function Features() {
           <Card>
             <CardHeader>
               <CardTitle>
-                Easy Clipboard Copy
+                Centralized Database
                 <Badge variant="outline" className="ml-2">Up to Date</Badge>
               </CardTitle>
               <CardDescription>
-                Simplify your workflow with easy copy-to-clipboard features.
+                Access all your game references from a single, organized database.
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <p>Copy IDs and information with a single click.</p>
+              <p>Save time and effort by having all your references in one place.</p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader>
               <CardTitle>
-                Detailed Filtering
+                User-Friendly Interface
                 <Badge variant="outline" className="ml-2">Up to Date</Badge>
               </CardTitle>
               <CardDescription>
-                Filter by categories to find exactly what you need.
+                Enjoy a seamless experience with our intuitive and easy-to-use interface.
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <p>Organize and filter your data by specific categories for quick access.</p>
+              <p>Designed specifically for developers to enhance productivity.</p>
             </CardContent>
           </Card>
         </div>

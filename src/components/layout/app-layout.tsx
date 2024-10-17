@@ -15,7 +15,7 @@ export default function AppLayout({
   if (!sidebar) return null;
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex min-h-screen">
       <Sidebar />
       <main
         className={cn(

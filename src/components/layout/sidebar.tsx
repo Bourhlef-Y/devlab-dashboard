@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Menu } from "@/components/layout/menu";
 import { useSidebarToggle } from "@/hooks/use-sidebar-toggle";
 import { SidebarToggle } from "@/components/layout/sidebar-toggle";
+import { ModeToggle } from "@/components/mode-toggle";
 
 export function Sidebar() {
   const sidebar = useStore(useSidebarToggle, (state) => state);
@@ -44,6 +45,14 @@ export function Sidebar() {
           </Link>
         </Button>
         <Menu isOpen={sidebar?.isOpen} />
+        
+        {/* Ajoutez le bouton de changement de thème ici */}
+        <div className={cn(
+          "mt-auto pb-4",
+          sidebar?.isOpen === false ? "flex justify-center" : ""
+        )}>
+          <ModeToggle />
+        </div>
       </div>
     </aside>
   );

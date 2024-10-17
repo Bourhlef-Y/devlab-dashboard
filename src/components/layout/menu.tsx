@@ -2,8 +2,8 @@
 "use client";
 
 import Link from "next/link";
-import { Ellipsis, LogOut } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation"; // Importez useRouter
+import { Ellipsis } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { getMenuList } from "@/lib/menu-list";
@@ -16,8 +16,6 @@ import {
   TooltipContent,
   TooltipProvider
 } from "@/components/ui/tooltip";
-import { signOut } from "@/utils/signout";
-import { removeLoggedInCookie } from "@/utils/authCookie";
 
 interface MenuProps {
   isOpen: boolean | undefined;
@@ -25,18 +23,7 @@ interface MenuProps {
 
 export function Menu({ isOpen }: MenuProps) {
   const pathname = usePathname();
-  const router = useRouter(); // Utilisez useRouter pour la redirection
   const menuList = getMenuList(pathname);
-  
-  const handleSignOut = async () => {
-    try {
-      await signOut();
-      removeLoggedInCookie();
-      router.push('/login'); // Redirigez vers la page de connexion après la déconnexion
-    } catch (error) {
-      console.error('Erreur lors de la déconnexion:', error);
-    }
-  };
 
   return (
     <ScrollArea className="[&>div>div[style]]:!block">
@@ -118,35 +105,6 @@ export function Menu({ isOpen }: MenuProps) {
             </li>
           ))}
           
-          <li className="w-full grow flex items-end">
-            <TooltipProvider disableHoverableContent>
-              <Tooltip delayDuration={100}>
-                <TooltipTrigger asChild>
-                  <Button
-                    onClick={handleSignOut} // Utilisez handleSignOut pour inclure la redirection
-                    variant="outline"
-                    className="w-full justify-center h-10 mt-5"
-                  >
-                    <span className={cn(isOpen === false ? "" : "mr-4")}>
-                      <LogOut size={18} />
-                    </span>
-                    <p
-                      className={cn(
-                        "whitespace-nowrap",
-                        isOpen === false ? "opacity-0 hidden" : "opacity-100"
-                      )}
-                    >
-                      Sign out
-                    </p>
-                  </Button>
-                </TooltipTrigger>
-                {isOpen === false && (
-                  <TooltipContent side="right">Sign out</TooltipContent>
-                )}
-              </Tooltip>
-              
-            </TooltipProvider>
-          </li>
           {isOpen === true && (
             <div className="px z-20 w-full bg-background/95 shadow backdrop-blur supports-[backdrop-filter]:bg-background/60 pt-4 pb-2">
               <div className="mx-4 md:mx-8 flex h-14 items-center">
@@ -167,7 +125,6 @@ export function Menu({ isOpen }: MenuProps) {
           )}
         </ul>
       </nav>
-      
     </ScrollArea>
   );
 }

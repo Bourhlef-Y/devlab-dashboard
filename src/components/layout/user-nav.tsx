@@ -2,9 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { LayoutGrid, LogOut, User } from "lucide-react";
-import { useState, useEffect } from "react";
-import { supabase } from "@/lib/supabaseClient"; 
+import { User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -22,41 +20,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import { signOut } from "@/utils/signout";
-import { removeLoggedInCookie } from "@/utils/authCookie";
-import { useRouter } from "next/navigation"; 
-import { Car } from "lucide-react";
-
-const handleSignOut = async () => {
-  try {
-    await signOut();
-    removeLoggedInCookie();
-    console.error('Utilisateur déconnecté');
-    useRouter().push('/login'); 
-  } catch (error) {
-    console.error('Erreur lors de la déconnexion:', error);
-  }
-};
-
-interface User {
-  email: string;
-}
 
 export function UserNav() {
-  const [user, setUser] = useState<User | null>(null);
-
-  useEffect(() => {
-    const getUser = async () => {
-      const { data, error } = await supabase.auth.getUser();
-      if (error) {
-        console.error('Error fetching user:', error);
-      } else {
-        setUser(data.user as User);
-      }
-    };
-    getUser();
-  }, []);
-
   return (
     <DropdownMenu>
       <TooltipProvider disableHoverableContent>
@@ -74,14 +39,14 @@ export function UserNav() {
               </Button>
             </DropdownMenuTrigger>
           </TooltipTrigger>
-          <TooltipContent side="bottom">Profile</TooltipContent>
+          <TooltipContent side="bottom">Menu</TooltipContent>
         </Tooltip>
       </TooltipProvider>
 
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{user?.email || "Loading..."}</p>
+            <p className="text-sm font-medium leading-none">User Menu</p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
@@ -93,13 +58,6 @@ export function UserNav() {
             </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <Link href="/login">
-          <DropdownMenuItem className="hover:cursor-pointer" onClick={handleSignOut}>
-            <LogOut className="w-4 h-4 mr-3 text-muted-foreground" />
-            Sign out
-          </DropdownMenuItem>
-        </Link>
       </DropdownMenuContent>
     </DropdownMenu>
   );

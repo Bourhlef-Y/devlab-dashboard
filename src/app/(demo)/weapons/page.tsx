@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import WeaponCard from '@/components/weapon/WeaponCard';
 import { supabase } from '@/lib/supabaseClient';
 import { Input } from "@/components/ui/input";
-import { ContentLayout } from "@/components/admin-panel/content-layout";
+import { ContentLayout } from "@/components/layout/content-layout";
 import { Select, SelectItem, SelectContent, SelectTrigger, SelectValue, SelectLabel } from "@/components/ui/select";
 
 // Define the Weapon interface

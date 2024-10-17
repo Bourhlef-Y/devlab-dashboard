@@ -1,6 +1,6 @@
 // Import necessary dependencies and components
 import { ReactNode } from "react";
-import { UserNav } from "@/components/admin-panel/user-nav";
+import { UserNav } from "@/components/layout/user-nav";
 import { Toaster } from "@/components/ui/sonner";
 
 // Define the interface for layout props

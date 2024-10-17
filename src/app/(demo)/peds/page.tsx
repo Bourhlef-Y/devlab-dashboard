@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import PedCard from '@/components/ped/pedCard';
 import { supabase } from '@/lib/supabaseClient';
 import styles from './Peds.module.css';
-import { ContentLayout } from "@/components/admin-panel/content-layout";
+import { ContentLayout } from "@/components/layout/content-layout";
 import { Input } from "@/components/ui/input";
 
 interface Ped {

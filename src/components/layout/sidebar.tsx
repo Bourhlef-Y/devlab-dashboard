@@ -3,9 +3,9 @@ import { Snail } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useStore } from "@/hooks/use-store";
 import { Button } from "@/components/ui/button";
-import { Menu } from "@/components/admin-panel/menu";
+import { Menu } from "@/components/layout/menu";
 import { useSidebarToggle } from "@/hooks/use-sidebar-toggle";
-import { SidebarToggle } from "@/components/admin-panel/sidebar-toggle";
+import { SidebarToggle } from "@/components/layout/sidebar-toggle";
 
 export function Sidebar() {
   const sidebar = useStore(useSidebarToggle, (state) => state);

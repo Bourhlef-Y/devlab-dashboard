@@ -2,7 +2,7 @@
 "use client";
 
 import ControlsTable from "@/components/controls/ControlsTable"; // Import the ControlsTable component
-import { ContentLayout } from "@/components/admin-panel/content-layout"; // Import the ContentLayout component
+import { ContentLayout } from "@/components/layout/content-layout"; // Import the ContentLayout component
 
 // Define the Controls component
 const Controls = () => {

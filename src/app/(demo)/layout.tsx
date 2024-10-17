@@ -1,11 +1,11 @@
-import AdminPanelLayout from "@/components/admin-panel/admin-panel-layout";
+"use client";
 
-// Define the DemoLayout component, which uses the AdminPanelLayout component
+import AppLayout from "@/components/layout/app-layout";
+
 export default function DemoLayout({
   children
 }: {
   children: React.ReactNode;
 }) {
-  // Return the AdminPanelLayout component with children passed as its content
-  return <AdminPanelLayout>{children}</AdminPanelLayout>;
+  return <AppLayout>{children}</AppLayout>;
 }

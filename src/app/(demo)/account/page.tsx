@@ -10,7 +10,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input"; // Import Input component
 import { Label } from "@/components/ui/label"; // Import Label component
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"; // Import Tabs components
-import { ContentLayout } from "@/components/admin-panel/content-layout"; // Import ContentLayout component
+import { ContentLayout } from "@/components/layout/content-layout"; // Import ContentLayout component
 import { User } from "@supabase/supabase-js"; // Import the User type from Supabase
 
 export default function Account() {

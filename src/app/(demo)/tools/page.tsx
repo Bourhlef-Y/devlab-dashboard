@@ -2,7 +2,7 @@
 "use client";
 
 import ToolCard from '@/components/tool/ToolCard'; // Import the ToolCard component
-import { ContentLayout } from '@/components/admin-panel/content-layout'; // Import the ContentLayout component
+import { ContentLayout } from '@/components/layout/content-layout'; // Import the ContentLayout component
 
 const tools = [
   {

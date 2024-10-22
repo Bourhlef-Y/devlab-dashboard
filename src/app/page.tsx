@@ -1,11 +1,15 @@
+"use client";
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { Snail } from "lucide-react";
-import { ArrowRightIcon, GitHubLogoIcon, DiscordLogoIcon } from "@radix-ui/react-icons";
+import { ArrowRightIcon, DiscordLogoIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
 import { Highlight } from "@/components/ui/hero-highlight";
 import { Separator } from "@/components/ui/separator";
+import AnimatedShinyButton from "@/components/ui/animated-shiny-button";
+import { cn } from "@/lib/utils";
 
 export default function HomePage() {
   return (
@@ -57,12 +61,20 @@ export default function HomePage() {
               A tool for FiveM developers!
             </span>
             <div className="flex w-full items-center justify-center space-x-4 py-4 md:pb-6">
-              <Button variant="default" asChild>
-                <Link href="/dashboard">
-                  Access to dashboard
-                  <ArrowRightIcon className="ml-2" />
-                </Link>
-              </Button>
+            <Link href="https://discord.gg/PqRxDwDCnp" target="_blank" rel="noopener noreferrer">
+                <AnimatedShinyButton 
+                  className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-discord-color-300 hover:duration-300 hover:dark:text-discord-color-200 bg-discord-color-500 dark:bg-discord-color-500"
+                >
+                  <span>Join Discord Community</span>
+                  <DiscordLogoIcon className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
+                </AnimatedShinyButton>
+              </Link>
+              <Link href="/dashboard">
+                <AnimatedShinyButton className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
+                  <span>Access to Dashboard</span>
+                  <ArrowRightIcon className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
+                </AnimatedShinyButton>
+              </Link>
             </div>
           </section>
           <div className="w-full flex justify-center relative">
@@ -138,11 +150,7 @@ export default function HomePage() {
               streamline the workflow, save time, and boost productivity for the FiveM development community. 
               This project is part of my portfolio for Holberton School. 
             </p>
-            <div className="flex justify-center space-x-4 mb-8">
-              <Link href="https://discord.gg/PqRxDwDCnp" className="text-blue-400 hover:underline">
-                Discord
-              </Link>
-            </div>
+
             <div>
               This project was made for help FiveM developers
             </div>

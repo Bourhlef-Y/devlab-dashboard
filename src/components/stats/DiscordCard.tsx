@@ -7,9 +7,9 @@ import { DiscordLogoIcon } from "@radix-ui/react-icons";
 
 const DiscordCard: React.FC = () => {
   return (
-    <Card className="relative w-full">
-      <Badge variant="outline" className="absolute top-2 right-2">Join Us!</Badge>
-      <CardHeader>
+    <Card className="relative w-full ">
+      <Badge variant="outline" className="absolute top-2 right-2 bg-discord-color-500">Join Us!</Badge>
+      <CardHeader className="flex flex-col gap-2 ">
         <CardTitle>Join our Discord</CardTitle>
       </CardHeader>
       <CardContent>
@@ -17,7 +17,7 @@ const DiscordCard: React.FC = () => {
       </CardContent>
       <CardFooter>
         <Link href="https://discord.gg/PqRxDwDCnp" passHref>
-          <Button>
+          <Button className="flex items-center gap-2 bg-discord-color-500">
             Join Discord
             <DiscordLogoIcon className="h-[1.2rem] w-[1.2rem]" />
           </Button>

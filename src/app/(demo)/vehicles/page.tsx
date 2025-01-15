@@ -4,11 +4,12 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import VehicleCard from '@/components/vehicles/VehiclesCard';
+import VehicleCard from '@/components/vehicle/VehicleCard';
 import { supabase } from '@/lib/supabaseClient';
 import { Input } from "@/components/ui/input";
 import { ContentLayout } from "@/components/layout/content-layout";
 import { Select, SelectItem, SelectContent, SelectTrigger, SelectValue, SelectLabel } from "@/components/ui/select";
+import { AnimatePresence } from "framer-motion";
 
 // Define the Vehicle interface
 interface Vehicle {
@@ -119,9 +120,11 @@ const Vehicles = () => {
         </div>
         <div className="flex-1 overflow-auto">
           <div className="grid grid-cols-6 gap-6">
-            {filteredVehicles.map((vehicle) => (
-              <VehicleCard key={vehicle.id} vehicle={vehicle} /> // Render VehicleCard for each filtered vehicle
-            ))}
+            <AnimatePresence mode="popLayout">
+              {filteredVehicles.map((vehicle) => (
+                <VehicleCard key={vehicle.id} vehicle={vehicle} />
+              ))}
+            </AnimatePresence>
           </div>
         </div>
       </div>

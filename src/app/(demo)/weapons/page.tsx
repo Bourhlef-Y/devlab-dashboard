@@ -9,6 +9,8 @@ import { supabase } from '@/lib/supabaseClient';
 import { Input } from "@/components/ui/input";
 import { ContentLayout } from "@/components/layout/content-layout";
 import { Select, SelectItem, SelectContent, SelectTrigger, SelectValue, SelectLabel } from "@/components/ui/select";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { motion, AnimatePresence } from "framer-motion";
 
 // Define the Weapon interface
 interface Weapon {
@@ -105,9 +107,11 @@ const Weapons = () => {
         </div>
         <div className="flex-1 overflow-auto">
           <div className="grid grid-cols-6 gap-6">
-            {filteredWeapons.map((weapon) => (
-              <WeaponCard key={weapon.id} weapon={weapon} /> // Render WeaponCard for each filtered weapon
-            ))}
+            <AnimatePresence mode="popLayout">
+              {filteredWeapons.map((weapon) => (
+                <WeaponCard key={weapon.id} weapon={weapon} />
+              ))}
+            </AnimatePresence>
           </div>
         </div>
       </div>

@@ -1,69 +1,59 @@
-import { useState, KeyboardEvent } from 'react';
-import { Card, CardHeader, CardContent, CardFooter, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { Download } from "lucide-react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 interface ToolCardProps {
   tool: {
     name: string;
     description: string;
     download: string;
-    image?: string; // Image optionnelle
+    image?: string;
     author: string;
   };
 }
 
 const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleImageClick = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === 'Escape') {
-      setIsModalOpen(false);
-    }
-  };
-
   return (
-    <div>
-      <Card className="w-full max-w-md mx-auto mb-6">
+    <motion.div
+      layout
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.8 }}
+      transition={{ duration: 0.2 }}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+    >
+      <Card className="h-full flex flex-col">
         <CardHeader>
           <CardTitle>{tool.name}</CardTitle>
-          <p className="text-sm text-gray-500">by {tool.author}</p>
+          <CardDescription>{tool.description}</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="flex-grow">
           {tool.image && (
-            <div className="relative w-full h-48 cursor-pointer" onClick={handleImageClick}>
-              <Image src={tool.image} alt={tool.name} layout="fill" objectFit="cover" className="rounded-t-lg" />
+            <div className="relative w-full h-48 mb-4">
+              <Image
+                src={tool.image}
+                alt={tool.name}
+                layout="fill"
+                objectFit="cover"
+                className="rounded-md"
+              />
             </div>
           )}
-          <CardDescription className="mt-4">{tool.description}</CardDescription>
+          <p className="text-sm text-muted-foreground">Author: {tool.author}</p>
         </CardContent>
         <CardFooter>
-          <Link href={tool.download} target="_blank" passHref>
-            <Button>
-              Click here to Use it
-            </Button>
-          </Link>
+          <Button asChild className="w-full">
+            <a href={tool.download} target="_blank" rel="noopener noreferrer">
+              <Download className="w-4 h-4 mr-2" />
+              Download
+            </a>
+          </Button>
         </CardFooter>
       </Card>
-
-      {isModalOpen && tool.image && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50" onClick={handleCloseModal} onKeyDown={handleKeyDown} tabIndex={0}>
-          <div className="relative">
-            <Image src={tool.image} alt={tool.name} layout="intrinsic" width={800} height={800} objectFit="contain" className="max-w-11 max-h-98px" />
-            <Button className="absolute top-2 right-2" onClick={handleCloseModal}>Close</Button>
-          </div>
-        </div>
-      )}
-    </div>
+    </motion.div>
   );
 };
 

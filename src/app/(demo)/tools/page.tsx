@@ -3,6 +3,7 @@
 
 import ToolCard from '@/components/tool/ToolCard'; // Import the ToolCard component
 import { ContentLayout } from '@/components/layout/content-layout'; // Import the ContentLayout component
+import { AnimatePresence } from 'framer-motion';
 
 const tools = [
   {
@@ -20,12 +21,6 @@ const tools = [
     author: "Esegovic",
   },
   {
-    name: "Very simple /car command",
-    description: "Script who set a command to spawn any car in front of you.",
-    download: "https://forum-cfx-re.akamaized.net/original/3X/3/9/394edb23c58fc64e23411306a40e63788a3a587b.zip",
-    author: "Vespura",
-  },
-  {
     name: "Server Viewer [Development not finished]",
     description: "A simple tool to view your server's resources and players.",
     download: "https://server-viewer.netlify.app/",
@@ -40,9 +35,11 @@ const UsefulTools = () => {
   return (
     <ContentLayout title="Useful Tools"> {/* Use ContentLayout with title "Useful Tools" */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {tools.map((tool, index) => (
-          <ToolCard key={index} tool={tool} /> // Render ToolCard for each tool
-        ))}
+        <AnimatePresence mode="popLayout">
+          {tools.map((tool, index) => (
+            <ToolCard key={tool.name || index} tool={tool} /> // Render ToolCard for each tool
+          ))}
+        </AnimatePresence>
       </div>
     </ContentLayout>
   );

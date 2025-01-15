@@ -6,6 +6,7 @@ import { supabase } from '@/lib/supabaseClient';
 import styles from './Peds.module.css';
 import { ContentLayout } from "@/components/layout/content-layout";
 import { Input } from "@/components/ui/input";
+import { AnimatePresence } from "framer-motion";
 
 interface Ped {
   id: string;
@@ -75,14 +76,12 @@ const Peds = () => {
                 onChange={(e) => setSearchTerm(e.target.value)} // Update search term on input change
               />
             </div>
-            <div className={styles.grid}>
-              {filteredPeds.length > 0 ? (
-                filteredPeds.map((ped) => (
-                  <PedCard key={ped.id} ped={ped} /> // Render PedCard for each filtered ped
-                ))
-              ) : (
-                <p>No peds found</p> // Show message if no peds found
-              )}
+            <div className="grid grid-cols-6 gap-6">
+              <AnimatePresence mode="popLayout">
+                {filteredPeds.map((ped) => (
+                  <PedCard key={ped.id} ped={ped} />
+                ))}
+              </AnimatePresence>
             </div>
           </div>
         </div>

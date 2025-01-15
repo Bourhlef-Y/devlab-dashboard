@@ -52,7 +52,7 @@ export function Menu({ isOpen }: MenuProps) {
                 <p className="pb-2"></p>
               )}
               {menus.map(
-                ({ href, label, icon: Icon, active, submenus }, index) =>
+                ({ href, label, icon: Icon, active, submenus = [] }, index) =>
                   submenus.length === 0 ? (
                     <div className="w-full" key={index}>
                       <TooltipProvider disableHoverableContent>

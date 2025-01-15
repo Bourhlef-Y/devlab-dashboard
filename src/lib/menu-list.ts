@@ -11,7 +11,9 @@ import {
   Sparkles,
   MessageSquareWarning,
   Keyboard,
-  LayoutDashboard
+  LayoutDashboard,
+  Code,
+  Server
 } from "lucide-react"; // Importing icons from lucide-react library
 
 // Type definition for a submenu item
@@ -98,6 +100,20 @@ export function getMenuList(pathname: string): Group[] {
           icon: Sparkles, // Icon for the Useful Tools menu
           submenus: [] // No submenus for Useful Tools
         },
+        {
+          href: "/scripts",
+          label: "Scripts",
+          active: pathname.includes("/scripts"),
+          icon: Code,
+          submenus: []
+        },
+        {
+          href: "/server",
+          label: "Server",
+          active: pathname.includes("/server"),
+          icon: Server,
+          submenus: []
+        }
       ]
     },
   ];

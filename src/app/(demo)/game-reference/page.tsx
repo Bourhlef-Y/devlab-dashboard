@@ -5,8 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { motion, AnimatePresence } from "framer-motion";
-
-// ... autres imports et interfaces ...
+import { vehicles, weapons, peds } from "@/data/game-references";
 
 export default function GameReferencePage() {
   const [search, setSearch] = useState("");

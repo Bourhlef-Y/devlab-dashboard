@@ -8,8 +8,7 @@ import WeaponCard from '@/components/weapon/WeaponCard';
 import { supabase } from '@/lib/supabaseClient';
 import { Input } from "@/components/ui/input";
 import { ContentLayout } from "@/components/layout/content-layout";
-import { Select, SelectItem, SelectContent, SelectTrigger, SelectValue, SelectLabel } from "@/components/ui/select";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Select, SelectItem, SelectContent, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { motion, AnimatePresence } from "framer-motion";
 
 // Define the Weapon interface
@@ -24,7 +23,6 @@ interface Weapon {
 // Define the Weapons component
 const Weapons = () => {
   const [weapons, setWeapons] = useState<Weapon[]>([]); // State for weapons
-  const [filteredWeapons, setFilteredWeapons] = useState<Weapon[]>([]); // State for filtered weapons
   const [searchTerm, setSearchTerm] = useState(""); // State for search term
   const [category, setCategory] = useState<string>('all'); // State for category
   const router = useRouter();
@@ -41,7 +39,6 @@ const Weapons = () => {
         console.error('Error fetching weapons:', error); // Log error if fetching fails
       } else {
         setWeapons(data); // Set weapons state
-        setFilteredWeapons(data); // Set filtered weapons state
       }
     };
 
@@ -52,43 +49,25 @@ const Weapons = () => {
     return () => clearInterval(intervalId); // Clear interval on component unmount
   }, []);
 
-  // Filter weapons based on category and search term
-  useEffect(() => {
-    filterWeapons(category, searchTerm);
-  }, [category, searchTerm, weapons]);
-
-  const handleCategoryChange = (value: string) => {
-    setCategory(value); // Update category state
-  };
-
-  const handleSearch = (term: string) => {
-    setSearchTerm(term); // Update search term state
-  };
-
-  const filterWeapons = (category: string, searchTerm: string) => {
-    let filtered = weapons;
-    if (category !== 'all') {
-      filtered = filtered.filter(w => w.category === category); // Filter by category
-    }
-    if (searchTerm) {
-      filtered = filtered.filter(w => w.name.toLowerCase().includes(searchTerm.toLowerCase())); // Filter by search term
-    }
-    setFilteredWeapons(filtered); // Set filtered weapons state
-  };
+  const filteredWeapons = weapons.filter(weapon => {
+    const matchesSearch = weapon.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = category === 'all' || weapon.category === category;
+    return matchesSearch && matchesCategory;
+  });
 
   return (
-    <ContentLayout title="Weapons"> {/* Use ContentLayout with title "Weapons" */}
-      <div className="flex flex-col min-h-screen">
-        <div className="flex justify-between mb-4">
+    <ContentLayout title="Weapons">
+      <div className="space-y-4">
+        <div className="flex gap-4">
           <Input
-            type="text"
-            placeholder="Search..."
+            placeholder="Search weapons..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)} // Update search term on input change
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="max-w-sm"
           />
-          <Select onValueChange={handleCategoryChange} value={category}>
-            <SelectTrigger className="max-w-xs">
-              <SelectValue placeholder="Select a category" />
+          <Select value={category} onValueChange={setCategory}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Category" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Categories</SelectItem>
@@ -105,14 +84,21 @@ const Weapons = () => {
             </SelectContent>
           </Select>
         </div>
-        <div className="flex-1 overflow-auto">
-          <div className="grid grid-cols-6 gap-6">
-            <AnimatePresence mode="popLayout">
-              {filteredWeapons.map((weapon) => (
-                <WeaponCard key={weapon.id} weapon={weapon} />
-              ))}
-            </AnimatePresence>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+          <AnimatePresence mode="popLayout">
+            {filteredWeapons.map((weapon) => (
+              <motion.div
+                key={weapon.id}
+                layout
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.2 }}
+              >
+                <WeaponCard weapon={weapon} />
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
       </div>
     </ContentLayout>

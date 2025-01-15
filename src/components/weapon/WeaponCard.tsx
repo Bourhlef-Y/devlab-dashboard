@@ -24,22 +24,19 @@ const WeaponCard: React.FC<WeaponCardProps> = ({ weapon }) => {
         // Show a success toast message
         toast("Copied to clipboard successfully!");
       })
-      .catch((err) => {
+      .catch(() => {
         // Log any errors that occur during the copy process
-        console.error('Failed to copy ID: ', err);
+        toast("Failed to copy to clipboard");
       });
   };
 
   return (
     <motion.div
-      layout
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.8 }}
-      transition={{ duration: 0.2 }}
-      className="col-span-1"
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      className="h-full"
     >
-      <Card className="cursor-pointer" onClick={handleCardClick}>
+      <Card className="cursor-pointer h-full" onClick={handleCardClick}>
         <CardHeader>
           <CardTitle>{weapon.name}</CardTitle>
           <CardDescription>{weapon.category}</CardDescription>

@@ -13,7 +13,8 @@ import {
   Keyboard,
   LayoutDashboard,
   Code,
-  Server
+  Server,
+  Car
 } from "lucide-react"; // Importing icons from lucide-react library
 
 // Type definition for a submenu item
@@ -66,23 +67,23 @@ export function getMenuList(pathname: string): Group[] {
         {
           href: "",
           label: "Game References",
-          active: pathname.includes("/gamereferences"), // Active if pathname includes /gamereferences
-          icon: Gamepad2, // Icon for the Game References menu
+          active: false,
+          icon: Gamepad2,
           submenus: [
             {
               href: "/weapons",
               label: "Weapons",
-              active: pathname === "/weapons", // Active if pathname is exactly /weapons
+              active: pathname === "/weapons"
             },
             {
               href: "/vehicles",
               label: "Vehicles",
-              active: pathname === "/vehicles" // Active if pathname is exactly /vehicles
+              active: pathname === "/vehicles"
             },
             {
               href: "/peds",
               label: "Peds",
-              active: pathname === "/peds" // Active if pathname is exactly /peds
+              active: pathname === "/peds"
             }
           ]
         },

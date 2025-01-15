@@ -7,20 +7,18 @@ import { Badge } from "@/components/ui/badge";
 import { Copy, Heart } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
-import { useScriptLikes } from "@/hooks/useScriptLikes";
 import { motion, AnimatePresence } from "framer-motion";
+import { useScriptLikes } from "@/hooks/useScriptLikes";
 
-export interface Script {
+interface Script {
   title: string;
   description: string;
   code: string;
   language: string;
   category: string;
-  likes?: number;
-  isFavorite?: boolean;
 }
 
-export const scripts: Script[] = [
+const scriptsList: Script[] = [
   {
     title: "Basic Vehicle Spawn",
     description: "Spawn a vehicle at player's position",
@@ -157,7 +155,7 @@ export default function ScriptsPage() {
     navigator.clipboard.writeText(code);
     toast({
       title: "Code copied!",
-      description: "The script has been copied to your clipboard.",
+      description: "The code has been copied to your clipboard.",
     });
   };
 
@@ -217,7 +215,7 @@ export default function ScriptsPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <AnimatePresence mode="popLayout">
-          {scripts
+          {scriptsList
             .filter(script => {
               if (filter === "favorites") return userLikes.includes(script.title);
               if (filter === "all") return true;
@@ -231,6 +229,8 @@ export default function ScriptsPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.2 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
                 <Card className="flex flex-col h-full">
                   <CardHeader>

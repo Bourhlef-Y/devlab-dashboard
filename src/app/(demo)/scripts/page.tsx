@@ -9,142 +9,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { useScriptLikes } from "@/hooks/useScriptLikes";
-
-interface Script {
-  title: string;
-  description: string;
-  code: string;
-  language: string;
-  category: string;
-}
-
-const scriptsList: Script[] = [
-  {
-    title: "Basic Vehicle Spawn",
-    description: "Spawn a vehicle at player's position",
-    code: `RegisterCommand('car', function(source, args)
-    local vehicleName = args[1] or 'adder'
-    local playerPed = GetPlayerPed(-1)
-    local coords = GetEntityCoords(playerPed)
-    
-    local vehicle = CreateVehicle(GetHashKey(vehicleName), coords.x, coords.y, coords.z, GetEntityHeading(playerPed), true, false)
-    SetPedIntoVehicle(playerPed, vehicle, -1)
-    SetEntityAsNoLongerNeeded(vehicle)
-    SetVehicleNumberPlateText(vehicle, "SPAWN")
-end, false)`,
-    language: "lua",
-    category: "Vehicle"
-  },
-  {
-    title: "Vehicle Repair",
-    description: "Répare et nettoie le véhicule actuel du joueur",
-    code: `RegisterCommand('repair', function(source, args)
-    local playerPed = GetPlayerPed(-1)
-    local vehicle = GetVehiclePedIsIn(playerPed, false)
-    
-    if vehicle ~= 0 then
-        SetVehicleFixed(vehicle)
-        SetVehicleDirtLevel(vehicle, 0.0)
-        SetVehicleEngineHealth(vehicle, 1000.0)
-        SetVehiclePetrolTankHealth(vehicle, 1000.0)
-        Citizen.InvokeNative(0x115722B1B9C14C1C, vehicle)
-        Citizen.InvokeNative(0x79D3B596FE44EE8B, vehicle, 0.0)
-        SetVehicleUndriveable(vehicle, false)
-        Citizen.Wait(100)
-        SetVehicleEngineOn(vehicle, true, true)
-        Notify("~g~Vehicle repaired!")
-    else
-        Notify("~r~You must be in a vehicle!")
-    end
-end, false)`,
-    language: "lua",
-    category: "Vehicle"
-  },
-  {
-    title: "Weapon Giver",
-    description: "Donne une arme spécifique au joueur avec des munitions",
-    code: `RegisterCommand('weapon', function(source, args)
-    local weaponName = args[1] or 'WEAPON_PISTOL'
-    local ammo = tonumber(args[2]) or 100
-    local playerPed = GetPlayerPed(-1)
-    
-    GiveWeaponToPed(playerPed, GetHashKey(weaponName), ammo, false, true)
-    Notify("~g~Weapon " .. weaponName .. " given with " .. ammo .. " ammo!")
-end, false)`,
-    language: "lua",
-    category: "Weapon"
-  },
-  {
-    title: "Teleport to Waypoint",
-    description: "Téléporte le joueur au marqueur sur la carte",
-    code: `RegisterCommand('tp', function(source, args)
-    local playerPed = GetPlayerPed(-1)
-    local waypoint = GetFirstBlipInfoId(8) -- 8 is the waypoint ID
-    
-    if DoesBlipExist(waypoint) then
-        local coords = GetBlipInfoIdCoord(waypoint)
-        local found, z = GetGroundZFor_3dCoord(coords.x, coords.y, 999.0)
-        
-        if found then
-            SetEntityCoords(playerPed, coords.x, coords.y, z)
-            Notify("~g~Teleported to waypoint!")
-        else
-            Notify("~r~Could not find ground at waypoint!")
-        end
-    else
-        Notify("~r~No waypoint set!")
-    end
-end, false)`,
-    language: "lua",
-    category: "Utility"
-  },
-  {
-    title: "Weather Controller",
-    description: "Change la météo du jeu",
-    code: `RegisterCommand('weather', function(source, args)
-    local weather = args[1] or 'CLEAR'
-    local validWeathers = {
-        CLEAR = true, EXTRASUNNY = true, CLOUDS = true,
-        OVERCAST = true, RAIN = true, THUNDER = true,
-        SNOW = true, BLIZZARD = true, FOGGY = true
-    }
-    
-    if validWeathers[string.upper(weather)] then
-        SetWeatherTypeNowPersist(string.upper(weather))
-        Notify("~g~Weather changed to " .. weather)
-    else
-        Notify("~r~Invalid weather type!")
-    end
-end, false)`,
-    language: "lua",
-    category: "World"
-  },
-  {
-    title: "Ped Spawner",
-    description: "Fait apparaître un PED avec une tâche spécifique",
-    code: `RegisterCommand('ped', function(source, args)
-    local pedModel = args[1] or 'a_m_y_skater_01'
-    local playerPed = GetPlayerPed(-1)
-    local coords = GetEntityCoords(playerPed)
-    local heading = GetEntityHeading(playerPed)
-    
-    RequestModel(GetHashKey(pedModel))
-    while not HasModelLoaded(GetHashKey(pedModel)) do
-        Wait(1)
-    end
-    
-    local ped = CreatePed(4, GetHashKey(pedModel), coords.x + 2.0, coords.y, coords.z, heading, true, true)
-    SetEntityAsMissionEntity(ped, true, true)
-    
-    -- Exemple: faire suivre le joueur
-    if args[2] == 'follow' then
-        TaskFollowToOffsetOfEntity(ped, playerPed, 0.0, 0.0, 0.0, 5.0, -1, 1.0, true)
-    end
-end, false)`,
-    language: "lua",
-    category: "Ped"
-  }
-];
+import { scripts, Script } from "@/data/scripts";
 
 export default function ScriptsPage() {
   const { toast } = useToast();
@@ -215,7 +80,7 @@ export default function ScriptsPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <AnimatePresence mode="popLayout">
-          {scriptsList
+          {scripts
             .filter(script => {
               if (filter === "favorites") return userLikes.includes(script.title);
               if (filter === "all") return true;

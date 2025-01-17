@@ -14,7 +14,8 @@ import {
   LayoutDashboard,
   Code,
   Server,
-  Car
+  Car,
+  ServerIcon
 } from "lucide-react"; // Importing icons from lucide-react library
 
 // Type definition for a submenu item
@@ -117,5 +118,17 @@ export function getMenuList(pathname: string): Group[] {
         }
       ]
     },
+    {
+      groupLabel: "Serveur", // Nouveau groupe pour le statut serveur
+      menus: [
+        {
+          href: "/server-status",
+          label: "Statut Serveur",
+          active: pathname.includes("/server-status"),
+          icon: ServerIcon,
+          submenus: []
+        }
+      ]
+    }
   ];
 }

@@ -8,6 +8,7 @@ interface FiveMApiResponse {
     hostname: string;
     clients: number;
     sv_maxclients: number;
+    server: string;
     players: Array<{
       name: string;
       id: number;
@@ -18,9 +19,13 @@ interface FiveMApiResponse {
       gametype: string;
       mapname: string;
       enhancedHostSupport: boolean;
+      onesync_enabled?: string;
+      sv_enforceGameBuild?: string;
+      locale?: string;
       [key: string]: any;
     };
   };
+  EndPoint: string;
 }
 
 export const useServerData = (cfxLink: string) => {

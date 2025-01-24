@@ -9,7 +9,7 @@ import { scripts } from "@/data/scripts";
 import { Badge } from "@/components/ui/badge";
 import { useDashboardConfig } from "@/hooks/useDashboardConfig";
 import { Button } from "@/components/ui/button";
-import { Settings, Check, GripHorizontal } from "lucide-react";
+import { Settings, Check, GripHorizontal, Sword, Car, Users, Code, Box } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
@@ -125,8 +125,8 @@ export default function DashboardPage() {
               >
                 <StatCard
                   title={card.title}
-                  count={counts[card.type] || 0}
-                  badge="Up to Date!"
+                  value={String(counts[card.type] || 0)}
+                  icon={getIconForType(card.type)}
                 />
               </motion.div>
             ))}
@@ -199,4 +199,14 @@ export default function DashboardPage() {
     </div>
   );
 }
+
+const getIconForType = (type: string) => {
+  const icons = {
+    weapons: <Sword className="w-4 h-4" />,
+    vehicles: <Car className="w-4 h-4" />,
+    peds: <Users className="w-4 h-4" />,
+    scripts: <Code className="w-4 h-4" />
+  };
+  return icons[type as keyof typeof icons] || <Box className="w-4 h-4" />;
+};
 

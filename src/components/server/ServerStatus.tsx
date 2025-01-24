@@ -7,7 +7,10 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
-import { Search } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { Users, Tag, Zap, Search } from 'lucide-react';
+import StatCard from '@/components/stats/StatCard';
+import { ServerData } from '@/types/server';
 
 const StatusBadge = ({ online }: { online: boolean }) => {
   if (online) {
@@ -24,6 +27,61 @@ const StatusBadge = ({ online }: { online: boolean }) => {
   );
 };
 
+const StatusIndicator = ({ online }: { online: boolean }) => (
+  <div className={cn(
+    "flex items-center gap-2",
+    "px-3 py-1 rounded-full",
+    online ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100" 
+    : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100"
+  )}>
+    <div className={cn(
+      "w-2 h-2 rounded-full animate-pulse",
+      online ? "bg-green-500" : "bg-red-500"
+    )} />
+    <span>{online ? "En ligne" : "Hors ligne"}</span>
+  </div>
+);
+
+const ServerStats = ({ data }: { data: ServerData }) => (
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+    <StatCard
+      title="Joueurs"
+      value={`${data.clients}/${data.sv_maxclients}`}
+      icon={<Users className="w-4 h-4" />}
+    />
+    <StatCard
+      title="Version"
+      value={data.gameVersion}
+      icon={<Tag className="w-4 h-4" />}
+    />
+    <StatCard
+      title="OneSync"
+      value={data.oneSyncEnabled ? "Activé" : "Désactivé"}
+      icon={<Zap className="w-4 h-4" />}
+    />
+  </div>
+);
+
+const PlayerFilters = ({ 
+  searchQuery, 
+  setSearchQuery
+}: {
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
+}) => (
+  <div className="mb-6">
+    <div className="relative">
+      <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+      <Input
+        placeholder="Rechercher un joueur..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        className="pl-8"
+      />
+    </div>
+  </div>
+);
+
 export const ServerStatus: React.FC = () => {
   const [cfxInput, setCfxInput] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
@@ -38,8 +96,18 @@ export const ServerStatus: React.FC = () => {
     previousPage,
     getCurrentPagePlayers,
     totalPages,
-    refresh
+    totalPlayers,
+    playersPerPage,
+    refreshData
   } = useServerData(activeCfxLink || '');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const formattedInput = cfxInput.includes('cfx.re/join/') 
+      ? cfxInput 
+      : `cfx.re/join/${cfxInput}`;
+    setActiveCfxLink(formattedInput);
+  };
 
   const getFilteredPlayers = () => {
     const players = getCurrentPagePlayers();
@@ -51,14 +119,6 @@ export const ServerStatus: React.FC = () => {
       player.id.toString().includes(query) ||
       player.identifiers.some(id => id.toLowerCase().includes(query))
     );
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const formattedInput = cfxInput.includes('cfx.re/join/') 
-      ? cfxInput 
-      : `cfx.re/join/${cfxInput}`;
-    setActiveCfxLink(formattedInput);
   };
 
   return (
@@ -75,7 +135,10 @@ export const ServerStatus: React.FC = () => {
               onChange={(e) => setCfxInput(e.target.value)}
               className="flex-1"
             />
-            <Button type="submit" disabled={!cfxInput || isLoading}>
+            <Button 
+              type="submit" 
+              disabled={!cfxInput || cfxInput.length < 3}
+            >
               Rechercher
             </Button>
           </form>
@@ -96,12 +159,12 @@ export const ServerStatus: React.FC = () => {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={refresh}
+                  onClick={refreshData}
                   disabled={isLoading}
                 >
                   Actualiser
                 </Button>
-                <StatusBadge online={serverData?.online ?? false} />
+                <StatusIndicator online={serverData?.online ?? false} />
               </div>
             )}
           </div>
@@ -129,15 +192,10 @@ export const ServerStatus: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="relative">
-                <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                <Input
-                  placeholder="Rechercher un joueur..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-8"
-                />
-              </div>
+              <PlayerFilters
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+              />
             </div>
           )}
         </CardHeader>
@@ -194,25 +252,40 @@ export const ServerStatus: React.FC = () => {
             </div>
           </div>
         </CardContent>
-        <div className="flex justify-between items-center p-4 border-t">
-              <Button
-                onClick={previousPage}
-                disabled={!serverData || currentPage === 1}
-                variant="outline"
-              >
-                Précédent
-              </Button>
-              <span>
-                Page {currentPage} sur {totalPages}
-              </span>
-              <Button
-                onClick={nextPage}
-                disabled={!serverData || currentPage === totalPages}
-                variant="outline"
-              >
-                Suivant
-              </Button>
-            </div>
+        <div className="flex items-center justify-between p-4 border-t">
+          <div className="flex items-center gap-2">
+            <Button
+              onClick={previousPage}
+              disabled={!serverData || currentPage === 1}
+              variant="outline"
+              size="sm"
+            >
+              Précédent
+            </Button>
+            <Button
+              onClick={nextPage}
+              disabled={!serverData || currentPage === totalPages}
+              variant="outline"
+              size="sm"
+            >
+              Suivant
+            </Button>
+          </div>
+          
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <span>
+              Affichage {serverData ? (currentPage - 1) * playersPerPage + 1 : 0} - {
+                serverData 
+                  ? Math.min(currentPage * playersPerPage, totalPlayers) 
+                  : 0
+              } sur {totalPlayers} joueurs
+            </span>
+            <span>|</span>
+            <span>
+              Page {currentPage} sur {totalPages}
+            </span>
+          </div>
+        </div>
       </Card>
       
     </div>

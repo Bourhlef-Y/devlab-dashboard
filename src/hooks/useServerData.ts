@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { ServerData } from '@/types/server';
+import { toast } from "sonner";
 
 interface FiveMApiResponse {
   Data: {
@@ -30,17 +31,37 @@ interface FiveMApiResponse {
 
 export const useServerData = (cfxLink: string) => {
   const [serverData, setServerData] = useState<ServerData | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const playersPerPage = 14;
+  const [playersPerPage, setPlayersPerPage] = useState(10);
+
+  // Fonction pour ajuster le nombre de joueurs par page selon la taille de l'écran
+  const adjustPlayersPerPage = () => {
+    const height = window.innerHeight;
+    // Calculer approximativement combien de lignes peuvent tenir dans la vue
+    // En supposant qu'une ligne fait environ 53px de hauteur (incluant padding/margin)
+    const availableHeight = height - 400; // Soustraire l'espace pour les headers/footers
+    const rowHeight = 53;
+    const possibleRows = Math.floor(availableHeight / rowHeight);
+    
+    // Limiter entre 10 et 25 joueurs par page
+    setPlayersPerPage(Math.max(10, Math.min(25, possibleRows)));
+  };
+
+  // Écouter les changements de taille d'écran
+  useEffect(() => {
+    adjustPlayersPerPage();
+    window.addEventListener('resize', adjustPlayersPerPage);
+    return () => window.removeEventListener('resize', adjustPlayersPerPage);
+  }, []);
 
   const extractCfxCode = (link: string) => {
     const match = link.match(/cfx\.re\/join\/([a-zA-Z0-9]+)/);
     return match ? match[1] : null;
   };
 
-  const fetchServerData = async () => {
+  const fetchServerData = useCallback(async () => {
     const isFirstLoad = !serverData;
     if (isFirstLoad) {
       setIsLoading(true);
@@ -108,24 +129,20 @@ export const useServerData = (cfxLink: string) => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [serverData, cfxLink, currentPage, playersPerPage]);
 
   useEffect(() => {
-    let intervalId: NodeJS.Timeout;
+    if (!cfxLink) return;
+    
+    // Faire le fetch initial
+    fetchServerData();
+    
+    // Puis mettre en place l'intervalle
+    const interval = setInterval(fetchServerData, 30000);
 
-    const startFetching = async () => {
-      await fetchServerData();
-      intervalId = setInterval(fetchServerData, 15000);
-    };
-
-    startFetching();
-
-    return () => {
-      if (intervalId) {
-        clearInterval(intervalId);
-      }
-    };
-  }, [cfxLink]);
+    // Cleanup
+    return () => clearInterval(interval);
+  }, [cfxLink, fetchServerData]);
 
   const nextPage = () => {
     if (serverData && currentPage < Math.ceil(serverData.players.length / playersPerPage)) {
@@ -141,8 +158,24 @@ export const useServerData = (cfxLink: string) => {
 
   const getCurrentPagePlayers = () => {
     if (!serverData) return [];
+    
+    // Calculer l'index de début et de fin pour la page actuelle
     const start = (currentPage - 1) * playersPerPage;
-    return serverData.players.slice(start, start + playersPerPage);
+    const end = start + playersPerPage;
+    
+    // Retourner seulement les joueurs de la page actuelle
+    return serverData.players.slice(start, end);
+  };
+
+  // Ajouter une fonction pour obtenir le nombre total de joueurs
+  const getTotalPlayers = () => {
+    return serverData?.players.length || 0;
+  };
+
+  // Ajouter une fonction de rafraîchissement manuel
+  const refreshData = () => {
+    fetchServerData();
+    toast.success("Données actualisées");
   };
 
   return {
@@ -156,6 +189,8 @@ export const useServerData = (cfxLink: string) => {
     totalPages: serverData 
       ? Math.ceil(serverData.players.length / playersPerPage)
       : 0,
-    refresh: fetchServerData
+    totalPlayers: getTotalPlayers(),
+    playersPerPage,
+    refreshData
   };
 }; 

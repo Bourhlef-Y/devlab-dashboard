@@ -9,12 +9,13 @@ interface FiveMApiResponse {
     hostname: string;
     clients: number;
     sv_maxclients: number;
-    server: string;
+    server: string;  // Version du serveur
     players: Array<{
       name: string;
       id: number;
       identifiers: string[];
       ping: number;
+      endpoint?: string;
     }>;
     vars: {
       gametype: string;
@@ -23,10 +24,17 @@ interface FiveMApiResponse {
       onesync_enabled?: string;
       sv_enforceGameBuild?: string;
       locale?: string;
+      sv_projectDesc?: string;
+      sv_projectName?: string;
       [key: string]: any;
     };
+    resources?: string[];
+    upvotePower?: number;
+    lastSeen?: string;
+    iconVersion?: number;
   };
   EndPoint: string;
+  IconVersion?: number;
 }
 
 export const useServerData = (cfxLink: string) => {

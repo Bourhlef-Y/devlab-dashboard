@@ -48,7 +48,8 @@ ensure sessionmanager
 ensure basic-gamemode
 ensure hardcap
 
-# Add your resources below
+# Load All resources
+@exec resources.cfg
 `,
   },
   {
@@ -116,6 +117,8 @@ add_ace resource.core command.restart allow
 
 # Example: add admin to group
 #add_principal identifier.steam:110000112345678 group.admin
+#add_principal identifier.license:1234567890 group.admin
+#add_principal identifier.discord:123456789050150 group.admin
 `,
   },
 ];

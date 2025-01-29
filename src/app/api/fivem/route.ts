@@ -12,6 +12,9 @@ export async function GET(request: Request) {
   }
 
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 secondes timeout
+
     const response = await fetch(
       `https://servers-frontend.fivem.net/api/servers/single/${cfxCode}`,
       {
@@ -19,9 +22,12 @@ export async function GET(request: Request) {
           'Accept': 'application/json',
           'User-Agent': 'DevLab-Dashboard/1.0'
         },
-        next: { revalidate: 0 }
+        next: { revalidate: 0 },
+        signal: controller.signal
       }
     );
+
+    clearTimeout(timeoutId);
 
     if (!response.ok) {
       const errorMessages = {
@@ -38,6 +44,17 @@ export async function GET(request: Request) {
     const data = await response.json();
     return NextResponse.json(data);
   } catch (error) {
+    if (error instanceof Error) {
+      if (error.name === 'AbortError') {
+        return NextResponse.json(
+          { 
+            error: 'La requête a pris trop de temps',
+            code: 'TIMEOUT' 
+          },
+          { status: 408 }
+        );
+      }
+    }
     console.error('Server fetch error:', error);
     
     const errorMessage = error instanceof Error 

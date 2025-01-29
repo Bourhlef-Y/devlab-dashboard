@@ -13,9 +13,8 @@ import {
   Keyboard,
   LayoutDashboard,
   Code,
-  Server,
-  Car,
-  ServerIcon
+  Server as ServerIcon,
+  Car
 } from "lucide-react"; // Importing icons from lucide-react library
 
 // Type definition for a submenu item
@@ -113,13 +112,13 @@ export function getMenuList(pathname: string): Group[] {
           href: "/server",
           label: "Server",
           active: pathname.includes("/server"),
-          icon: Server,
+          icon: ServerIcon,
           submenus: []
         }
       ]
     },
     {
-      groupLabel: "Serveur", // Nouveau groupe pour le statut serveur
+      groupLabel: "Serveur",
       menus: [
         {
           href: "/server-status",

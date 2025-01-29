@@ -274,7 +274,7 @@ export const ServerStatus: React.FC = () => {
           
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <span>
-              Affichage {serverData ? (currentPage - 1) * playersPerPage + 1 : 0} - {
+              Affichage {serverData && totalPlayers > 0 ? (currentPage - 1) * playersPerPage + 1 : 0} - {
                 serverData 
                   ? Math.min(currentPage * playersPerPage, totalPlayers) 
                   : 0
@@ -282,7 +282,7 @@ export const ServerStatus: React.FC = () => {
             </span>
             <span>|</span>
             <span>
-              Page {currentPage} sur {totalPages}
+              Page {currentPage} sur {totalPages || 1}
             </span>
           </div>
         </div>

@@ -35,32 +35,39 @@ const scriptActivities: Activity[] = scripts.map(script => ({
 // Ajout des nouvelles activités
 const recentFeatures: Activity[] = [
   {
+    id: 'dashboard-layout',
+    type: 'update',
+    name: 'New Horizon Studio',
+    description: 'Add Horizon Studio to the website',
+    date: new Date('2025-01-29').toISOString()
+  },
+  {
     id: 'server-page',
     type: 'feature',
     name: 'Server Configuration',
     description: 'Added server configuration page with templates and guides',
-    date: new Date('2024-03-22').toISOString()
+    date: new Date('2025-01-15').toISOString()
   },
   {
     id: 'scripts-library',
     type: 'feature',
     name: 'Scripts Library',
     description: 'New scripts library with categorized FiveM code snippets',
-    date: new Date('2024-03-21').toISOString()
+    date: new Date('2025-01-15').toISOString()
   },
   {
     id: 'motion-animations',
     type: 'improvement',
     name: 'Smooth Animations',
     description: 'Added Framer Motion animations across all components',
-    date: new Date('2024-03-20').toISOString()
+    date: new Date('2025-01-15').toISOString()
   },
   {
     id: 'dashboard-layout',
     type: 'update',
     name: 'Customizable Dashboard',
     description: 'Added drag-and-drop layout customization for dashboard cards',
-    date: new Date('2024-03-18').toISOString()
+    date: new Date('2025-01-15').toISOString()
   }
 ];
 

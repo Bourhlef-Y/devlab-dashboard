@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { DiscordLogoIcon } from "@radix-ui/react-icons";
-import { motion } from "framer-motion";
 
 const DiscordCard: React.FC = () => {
   return (

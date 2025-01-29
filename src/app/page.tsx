@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Snail } from "lucide-react";
 import { ArrowRightIcon, DiscordLogoIcon  } from "@radix-ui/react-icons";
-import { CiShop } from "react-icons/ci";
+import { SiFivem } from "react-icons/si";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
 import { Highlight } from "@/components/ui/hero-highlight";
@@ -69,12 +69,12 @@ export default function HomePage() {
                 <span>Join Discord Community</span>
                 <DiscordLogoIcon className="ml-1 size-5 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
               </AnimatedShinyButton>
-            </Link><Link href="https://devlab.sellhub.cx/" target="_blank" rel="noopener noreferrer">
+            </Link><Link href="https://horizonstudio.shop/" target="_blank" rel="noopener noreferrer">
               <AnimatedShinyButton 
                 className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-discord-color-300 hover:duration-300 hover:dark:text-discord-color-200 bg-orange-400 dark:bg-orange-400"
               >
-                <span>DevLab Store</span>
-                <CiShop className="ml-1 size-5 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
+                <span>Horizon Stuido</span>
+                <SiFivem className="ml-1 size-5 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
               </AnimatedShinyButton>
             </Link>
               <Link href="/dashboard">

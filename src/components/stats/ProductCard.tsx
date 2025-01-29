@@ -14,7 +14,7 @@ export function ProductCard() {
             src="/images/gav-banner.jpg" 
             alt="Système de Garde à Vue"
             fill
-            className="object-cover"
+            className="object-center"
             priority
           />
         </div>
@@ -22,29 +22,18 @@ export function ProductCard() {
         <div className="flex flex-col justify-between p-8">
           <div className="space-y-6">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-2xl">🚔 Système de Garde à Vue - FiveM</CardTitle>
-              <motion.div
-                animate={{ rotate: [-5, 5, -5] }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 0.5,
-                  ease: "linear"
-                }}
-              >
-                <Badge variant="destructive" className="uppercase text-lg">Promo</Badge>
-              </motion.div>
+              <CardTitle className="text-2xl">Police Cell Management</CardTitle>
+
             </div>
             <CardDescription className="text-lg">
-              Un système complet et intuitif de gestion des cellules{" "}
-              <br />
-              de garde à vue pour votre serveur FiveM.
+            Discover a complete and intuitive detention cell management system <br /> 
+            designed specifically for your FiveM server. <br /> This script provides optimized and seamless functionality, <br /> allowing players to interact with cells in a realistic and immersive way. <br /> With features like inmate management and advanced customization options, <br /> this tool integrates perfectly into your RP scenarios. <br /> Provide your players with a high-quality experience while simplifying <br /> the management of your servers police facilities.   
             </CardDescription>
           </div>
 
           <div className="flex items-center justify-between mt-6">
             <div className="flex items-center gap-3">
-              <span className="text-3xl font-bold">7.99€</span>
-              <span className="text-lg text-muted-foreground line-through">9.99€</span>
+              <span className="text-3xl font-bold">12.00€</span>
             </div>
             <Link 
                 href="https://devlab.sellhub.cx/product/Systme-de-Garde-Vue/" 

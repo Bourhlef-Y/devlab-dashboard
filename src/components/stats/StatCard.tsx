@@ -4,22 +4,20 @@ import { Badge } from "@/components/ui/badge";
 
 interface StatCardProps {
   title: string;
-  count: number;
-  badge?: string; // Add the badge property
+  value: string;
+  icon: React.ReactNode;
 }
 
-const StatCard: React.FC<StatCardProps> = ({ title, count, badge }) => {
-  return (
-    <Card className="relative w-full">
-      {badge && <Badge variant="outline" className="absolute top-2 right-2 dark:bg-zinc-50 dark:text-zinc-800 bg-zinc-900 text-zinc-50 ">{badge}</Badge>}
-      <CardHeader>
-        <CardTitle>{title}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <p className="text-2xl font-bold">{count}</p>
-      </CardContent>
-    </Card>
-  );
-};
+const StatCard = ({ title, value, icon }: StatCardProps) => (
+  <div className="flex items-center gap-4 rounded-lg border p-3">
+    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-background">
+      {icon}
+    </div>
+    <div>
+      <p className="text-sm font-medium text-muted-foreground">{title}</p>
+      <p className="text-lg font-bold">{value}</p>
+    </div>
+  </div>
+);
 
 export default StatCard;

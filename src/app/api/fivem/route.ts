@@ -6,7 +6,7 @@ export async function GET(request: Request) {
 
   if (!cfxCode) {
     return NextResponse.json(
-      { error: 'Code CFX manquant' },
+      { error: 'Code CFX manquant', code: 'MISSING_CFX' },
       { status: 400 }
     );
   }
@@ -24,14 +24,31 @@ export async function GET(request: Request) {
     );
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const errorMessages = {
+        404: 'Serveur introuvable',
+        429: 'Trop de requêtes, veuillez réessayer plus tard',
+        500: 'Erreur serveur FiveM',
+        503: 'Service FiveM indisponible'
+      };
+
+      throw new Error(errorMessages[response.status as keyof typeof errorMessages] || 
+        `Erreur HTTP: ${response.status}`);
     }
 
     const data = await response.json();
     return NextResponse.json(data);
   } catch (error) {
+    console.error('Server fetch error:', error);
+    
+    const errorMessage = error instanceof Error 
+      ? error.message 
+      : 'Erreur lors de la récupération des données du serveur';
+
     return NextResponse.json(
-      { error: 'Erreur lors de la récupération des données du serveur' },
+      { 
+        error: errorMessage,
+        code: 'FETCH_ERROR' 
+      },
       { status: 500 }
     );
   }

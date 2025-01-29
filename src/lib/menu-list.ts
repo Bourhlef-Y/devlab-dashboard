@@ -16,6 +16,7 @@ import {
   Server as ServerIcon,
   Car
 } from "lucide-react"; // Importing icons from lucide-react library
+import { HorizonStudioIcon } from "@/components/ui/custom-icon";
 
 // Type definition for a submenu item
 type Submenu = {
@@ -58,6 +59,13 @@ export function getMenuList(pathname: string): Group[] {
           active: pathname.includes("/dashboard"), // Active if pathname includes /dashboard
           icon: LayoutDashboard, // Icon for the DevLab menu
           submenus: [] // No submenus for DevLab
+        },
+        {
+          href: "/horizon-studio",
+          label: "Horizon Studio",
+          active: pathname.includes("/horizon-studio"),
+          icon: HorizonStudioIcon, // Remplacement de Sparkles par notre icône personnalisée
+          submenus: []
         }
       ]
     },

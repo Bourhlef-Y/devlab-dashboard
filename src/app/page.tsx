@@ -74,8 +74,21 @@ export default function HomePage() {
               <AnimatedShinyButton 
                 className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-discord-color-300 hover:duration-300 hover:dark:text-discord-color-200 bg-[#FF5000] dark:bg-[#FF5000]"
               >
-                <span>Horizon Stuido</span>
-                <SiFivem className="ml-1 size-5 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
+                <div className="relative w-5 h-5 ml-1 mr-2">
+                  <Image
+                    src="/Logo_DEV_PNG.png"
+                    alt="Horizon Studio Logo"
+                    fill
+                    className="object-contain transition-transform duration-300 ease-in-out group-hover:translate-x-0.5 dark:hidden"
+                  />
+                  <Image
+                    src="/Logo_DEV2_PNG.png"
+                    alt="Horizon Studio Logo"
+                    fill
+                    className="object-contain transition-transform duration-300 ease-in-out group-hover:translate-x-0.5 hidden dark:block"
+                  />
+                </div>
+                <span>Horizon Studio</span>
               </AnimatedShinyButton>
             </Link>
               <Link href="/dashboard">

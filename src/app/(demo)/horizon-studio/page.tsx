@@ -90,7 +90,7 @@ export default function HorizonStudioPage() {
       <section ref={headerRef} className="relative h-[80vh] flex items-center justify-center text-center">
         <div className="absolute inset-0">
           <Image
-            src="/images/studio-bg.jpg"
+            src="/studio-bg.jpg"
             alt="Horizon Studio Background"
             fill
             className="object-cover opacity-20"
@@ -175,7 +175,7 @@ export default function HorizonStudioPage() {
             {/* Product 1 */}
             <div className="p-8 bg-background rounded-lg shadow-sm flex flex-col items-center text-center">
               <Image
-                src="/images/gav-banner.jpg"
+                src="/gav-banner.jpg"
                 alt="Police Cell Management"
                 width={200}
                 height={200}
@@ -198,7 +198,7 @@ export default function HorizonStudioPage() {
             {/* Product 2 */}
             <div className="p-8 bg-background rounded-lg shadow-sm flex flex-col items-center text-center">
               <Image
-                src="/images/announce-system.jpg"
+                src="/announce-system.jpg"
                 alt="Advanced Announce System"
                 width={200}
                 height={200}
@@ -234,7 +234,7 @@ export default function HorizonStudioPage() {
                 {/* Dev Kerwan */}
                 <div className="p-6 bg-background rounded-lg shadow-sm flex items-center gap-6">
                   <Image
-                    src="/images/kerwan.jpg"
+                    src="/kerwan.jpg"
                     alt="Kerwan"
                     width={100}
                     height={100}
@@ -253,7 +253,7 @@ export default function HorizonStudioPage() {
                 {/* Dev Jak */}
                 <div className="p-6 bg-background rounded-lg shadow-sm flex items-center gap-6">
                   <Image
-                    src="/images/jak.jpg"
+                    src="/jak.jpg"
                     alt="Jak"
                     width={100}
                     height={100}
@@ -296,7 +296,7 @@ export default function HorizonStudioPage() {
             {/* Rewind RP */}
             <div className="p-8 bg-background rounded-lg shadow-sm flex flex-col items-center text-center">
               <Image
-                src="/images/rewind-rp.jpg"
+                src="/rewind-rp.jpg"
                 alt="Rewind RP"
                 width={150}
                 height={150}
@@ -311,7 +311,7 @@ export default function HorizonStudioPage() {
             {/* Petite Alsace RP */}
             <div className="p-8 bg-background rounded-lg shadow-sm flex flex-col items-center text-center">
               <Image
-                src="/images/petite-alsace-rp.jpg"
+                src="/petite-alsace-rp.jpg"
                 alt="Petite Alsace RP"
                 width={150}
                 height={150}

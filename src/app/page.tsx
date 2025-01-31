@@ -37,7 +37,7 @@ export default function HomePage() {
           <nav className="ml-auto flex items-center gap-2">
             <Button
               variant="outline"
-              size="icon"
+              size="sm"
               className="rounded-full w-8 h-8 bg-background"
               asChild
             >

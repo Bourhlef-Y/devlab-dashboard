@@ -46,60 +46,62 @@ export function SidebarNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="grid gap-1">
-      {sidebarLinks.map((link) => {
-        const Icon = link.icon;
-        
-        if (link.submenus) {
-          return (
-            <Collapsible key={link.title}>
-              <CollapsibleTrigger asChild>
-                <Button
-                  variant="ghost"
-                  className="justify-start w-full"
-                >
-                  <Icon className="w-5 h-5 mr-3" />
-                  {link.title}
-                </Button>
-              </CollapsibleTrigger>
-              <CollapsibleContent className="pl-6">
-                {link.submenus.map((submenu) => (
+    <div className="fixed inset-y-0 left-0 z-50 w-64 bg-background">
+      <nav className="grid gap-1">
+        {sidebarLinks.map((link) => {
+          const Icon = link.icon;
+          
+          if (link.submenus) {
+            return (
+              <Collapsible key={link.title}>
+                <CollapsibleTrigger asChild>
                   <Button
-                    key={submenu.href}
                     variant="ghost"
-                    className={cn(
-                      "justify-start w-full",
-                      pathname === submenu.href && "bg-muted"
-                    )}
-                    asChild
+                    className="justify-start w-full"
                   >
-                    <Link href={submenu.href}>
-                      {submenu.title}
-                    </Link>
+                    <Icon className="w-5 h-5 mr-3" />
+                    {link.title}
                   </Button>
-                ))}
-              </CollapsibleContent>
-            </Collapsible>
-          );
-        }
+                </CollapsibleTrigger>
+                <CollapsibleContent className="pl-6">
+                  {link.submenus.map((submenu) => (
+                    <Button
+                      key={submenu.href}
+                      variant="ghost"
+                      className={cn(
+                        "justify-start w-full",
+                        pathname === submenu.href && "bg-muted"
+                      )}
+                      asChild
+                    >
+                      <Link href={submenu.href}>
+                        {submenu.title}
+                      </Link>
+                    </Button>
+                  ))}
+                </CollapsibleContent>
+              </Collapsible>
+            );
+          }
 
-        return (
-          <Button
-            key={link.href}
-            variant="ghost"
-            className={cn(
-              "justify-start",
-              pathname === link.href && "bg-muted"
-            )}
-            asChild
-          >
-            <Link href={link.href}>
-              <Icon className="w-5 h-5 mr-3" />
-              {link.title}
-            </Link>
-          </Button>
-        );
-      })}
-    </nav>
+          return (
+            <Button
+              key={link.href}
+              variant="ghost"
+              className={cn(
+                "justify-start",
+                pathname === link.href && "bg-muted"
+              )}
+              asChild
+            >
+              <Link href={link.href}>
+                <Icon className="w-5 h-5 mr-3" />
+                {link.title}
+              </Link>
+            </Button>
+          );
+        })}
+      </nav>
+    </div>
   );
 } 
